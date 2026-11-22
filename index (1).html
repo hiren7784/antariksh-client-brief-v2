@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#F5F3EE">
+<title>Begin your project — Antariksh Design Studio</title><meta name="description" content="A thoughtful beginning to your architecture, interior or landscape project. Antariksh Design Studio, Surat.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@500;600;700&family=Hind+Vadodara:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F5F3EE;--white:#fff;--ink:#252723;--soft:#575B54;--muted:#777B72;--line:#E2E0D8;--line-dark:#C9C7BD;--gold:#B98A43;--gold-pale:#F7F0E3;--olive:#565F51;--red:#B24340;--shadow:0 20px 75px rgba(29,32,27,.055);--font:'Barlow','Hind Vadodara',sans-serif;--display:'Barlow Semi Condensed','Hind Vadodara',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.52 var(--font);-webkit-font-smoothing:antialiased}button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid rgba(185,138,67,.4);outline-offset:3px}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);line-height:1.15}h1{font-size:clamp(34px,4.5vw,60px);font-weight:600;letter-spacing:-1.3px}h2{font-size:clamp(28px,3vw,40px);font-weight:600;letter-spacing:-.55px}h3{font-size:21px;font-weight:600}em{font-family:Georgia,serif;font-weight:400;color:var(--gold)}.container{max-width:1296px;margin:0 auto;padding:0 34px}.eyebrow{font:600 11px/1.4 var(--font);letter-spacing:2.1px;color:#91734A;text-transform:uppercase}.gu{display:block;margin-top:5px;color:#83857C;font:400 14px/1.45 'Hind Vadodara',var(--font)}.muted{color:var(--muted)}.topbar{height:90px;background:rgba(245,243,238,.96);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;backdrop-filter:blur(15px)}.topbar-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}.brand img{height:56px;max-width:176px;object-fit:contain}.brand-fallback{display:flex;flex-direction:column;line-height:1;letter-spacing:.17em}.brand-fallback strong{font:600 21px/1 var(--display)}.brand-fallback small{font-size:8px;letter-spacing:.45em;margin-top:7px}.top-right{display:flex;align-items:center;gap:28px}.draft-state{font-size:12px;color:var(--muted)}.language-toggle{background:none;border:1px solid var(--line-dark);border-radius:100px;padding:8px 13px;letter-spacing:.07em;font-size:12px;font-weight:600}.language-toggle span{color:#9E9E98}.progress-line{height:2px;background:#E4E1D8;position:sticky;top:90px;z-index:99}.progress-line>div{height:100%;width:0;background:var(--gold);transition:width .25s ease}.layout{display:grid;grid-template-columns:minmax(300px, 43%) minmax(0,57%);gap:58px;align-items:start;min-height:calc(100vh - 140px)}.intro-panel{min-height:730px}.intro-sticky{position:sticky;top:150px;padding-top:53px}.intro-panel h1{max-width:490px;margin:29px 0 17px}.intro-gu{font:400 17px/1.55 'Hind Vadodara',var(--font);color:#73776D;max-width:340px}.sketch{margin:35px 0 20px;height:210px;max-width:485px;opacity:.87}.sketch svg{height:100%;max-width:100%}.side-foot{margin-top:20px;color:var(--muted);font-size:10px;letter-spacing:1.4px;font-weight:600}.side-foot p{margin:7px 0;font-size:12px;font-weight:400;letter-spacing:.2px}.small-rule{display:block;width:35px;height:1px;background:var(--gold);margin-bottom:15px}.form-shell{background:#FFF;box-shadow:var(--shadow);min-height:650px;margin-top:34px;margin-bottom:70px;border:1px solid #E9E6DF;display:flex;flex-direction:column}.stepper{display:flex;align-items:center;gap:3px;padding:23px 34px 20px;border-bottom:1px solid var(--line);overflow:auto;scrollbar-width:none;white-space:nowrap}.stepper::-webkit-scrollbar{display:none}.step-number{height:28px;min-width:28px;border:1px solid var(--line-dark);color:#8A8D85;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-size:11px;margin-right:7px}.step-item{display:inline-flex;align-items:center;color:#8B8F86;font-size:11px;text-transform:uppercase;letter-spacing:1.2px;font-weight:600;background:none;border:0;padding:5px 4px;text-align:left}.step-item.active{color:var(--ink)}.step-item.active .step-number{background:var(--ink);color:white;border-color:var(--ink)}.step-item.done .step-number{border-color:var(--gold);color:#9B7A45}.step-sep{display:inline-block;width:21px;height:1px;background:#DCD9D1;flex-shrink:0;margin:0 3px}.form-content{padding:41px 45px 30px;flex:1}.form-meta{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.form-stepcount{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold);font-weight:700}.form-timing{font-size:12px;color:var(--muted)}.form-content h2{margin:8px 0}.section-description{max-width:490px;color:#6D7068;font-size:15px;margin-bottom:28px}.section-gu{display:block;font:400 16px 'Hind Vadodara',sans-serif;color:#8C8B84;margin-top:5px}.field-list{display:grid;gap:24px}.field{display:grid;gap:10px}.field-top{display:flex;gap:10px;justify-content:space-between}.field-label{font-size:15px;font-weight:600;line-height:1.4}.field-label .gu{font-weight:400}.required-mark{color:var(--red)}.field-note{font-size:12px;color:#74766E;margin:0;line-height:1.4}.input,.textarea,.select{appearance:none;width:100%;padding:13px 15px;border:1px solid #DBD9D0;border-radius:3px;background:#FFFEFC;color:var(--ink);min-height:48px;outline:0;transition:border-color .16s ease}.textarea{resize:vertical;min-height:100px}.input:focus,.textarea:focus,.select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(185,138,67,.12)}.input::placeholder,.textarea::placeholder{color:#AAA9A2}.chip-list{display:flex;flex-wrap:wrap;gap:8px}.choice{padding:11px 13px;border:1px solid #E0DED6;border-radius:3px;background:#FAF9F6;color:#52564D;font-size:13px;display:inline-flex;align-items:center;gap:9px;min-height:44px;text-align:left;transition:all .18s}.choice:hover{border-color:#BEB7A8}.choice[aria-pressed="true"]{background:var(--gold-pale);border-color:#C3A46C;color:#3B3B32}.choice .dot{display:inline-block;flex:none;width:11px;height:11px;border:1px solid #BAB9B0;border-radius:50%;background:white}.choice.multi .dot{border-radius:2px}.choice[aria-pressed="true"] .dot{border:3px solid #A77E3D}.choice.multi[aria-pressed="true"] .dot{border:0;background:#A77E3D;position:relative}.choice.multi[aria-pressed="true"] .dot:after{content:'✓';position:absolute;color:#fff;font-size:10px;top:-3px;left:1px}.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.service-card{background:#FAF9F7;border:1px solid #E1DED6;border-radius:3px;text-align:left;min-height:102px;padding:15px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:11px;position:relative}.service-card:hover{border-color:#B6A080}.service-card[aria-pressed="true"]{border-color:var(--gold);background:#F9F3E8;box-shadow:inset 0 0 0 1px var(--gold)}.service-icon{font:400 23px/1 Georgia,serif;color:#AB8755}.service-card strong{font-size:14px;font-weight:600}.service-card small{font:400 12px 'Hind Vadodara',sans-serif;color:#888981}.service-card[aria-pressed="true"]:after{content:'✓';position:absolute;right:12px;top:10px;color:#9D7535;font-size:16px}.two-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}.notice{background:#F8F3E9;border-left:2px solid #C09A59;padding:13px 16px;color:#635C50;font-size:13px}.notice strong{font-weight:700}.bottom-nav{padding:19px 44px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}.btn{min-height:49px;border:1px solid var(--ink);border-radius:2px;font:600 13px var(--font);letter-spacing:.25px;padding:14px 22px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:11px;transition:background .18s,color .18s}.btn span[lang="gu"]{font:400 12px 'Hind Vadodara',sans-serif;opacity:.75}.btn-primary{color:#fff;background:var(--ink)}.btn-primary:hover{background:#4B5049}.btn-outline{color:var(--ink);background:#fff;border-color:#D3D0C7}.btn-outline:hover{background:#F6F4EF}.btn-small{min-height:40px;padding:11px 15px;font-size:12px}.btn[disabled]{opacity:.4;cursor:not-allowed}.site-footer{display:flex;justify-content:space-between;padding:0 34px 35px;font-size:11px;color:#888D83;letter-spacing:.4px}.hero-number{font:400 80px/1 Georgia,serif;color:#DDC49A;margin:22px 0}.welcome-mark{font:500 12px var(--font);letter-spacing:1.5px;color:#967145}.welcome-panel p{font-size:15px;color:#666C62}.welcome-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:30px 0}.welcome-item{border-top:1px solid var(--line);padding-top:12px;display:flex;align-items:flex-start;gap:12px}.welcome-item .num{color:var(--gold);font:400 24px Georgia,serif}.welcome-item strong{font-size:13px}.welcome-item small{display:block;font-size:12px;color:var(--muted);margin-top:3px}.detail-group{margin:25px 0 0}.detail-group>.detail-title{border-bottom:1px solid var(--line);padding:0 0 11px;margin:0 0 24px;font:600 18px var(--display)}.detail-title small{display:block;font:400 13px 'Hind Vadodara',sans-serif;color:#8D8E86;margin-top:4px}.detail-lead{background:#F6F5F0;padding:15px;color:#65695E;font-size:13px;line-height:1.5;margin:0 0 20px}.detail-summary{padding:12px 14px;background:#EDF1EB;color:#4E6651;font-size:12px;border-radius:3px}.step-alert{padding:12px 15px;background:#FBEDEC;border-left:3px solid var(--red);font-size:13px;color:#8D3632;margin:0 0 20px}.attachment-field{background:#FAF9F6;border:1px dashed #C8C3B5;border-radius:3px;padding:18px}.upload-label{display:inline-block;cursor:pointer;text-decoration:underline;text-underline-offset:4px;font-weight:600;color:#95733E}.upload-files{font-size:12px;color:var(--muted);margin-top:10px}.review-card{border:1px solid var(--line);margin:12px 0 22px}.review-card-head{background:#F6F4F0;padding:13px 18px;display:flex;justify-content:space-between;gap:14px;align-items:center;font-weight:600;font-size:14px}.review-card-head button{background:none;border:0;color:#997846;text-decoration:underline;cursor:pointer;font:500 12px var(--font)}.review-dl{margin:0;padding:5px 18px 10px}.review-row{display:grid;grid-template-columns:37% minmax(0,1fr);gap:14px;padding:11px 0;border-bottom:1px solid #F0EEE9;font-size:13px}.review-row:last-child{border:0}.review-row dt{color:#7E817A}.review-row dd{margin:0;overflow-wrap:anywhere;white-space:pre-line}.review-none{font-size:13px;color:#8B8D86;padding:12px 18px}.review-actions{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0 0}.action-help{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}.privacy-note{font-size:12px;color:#777C74;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.success-note{background:#F0F3EE;color:#4E6752;padding:14px;font-size:13px}.plain-link{font-size:13px;color:#8B6F45;text-decoration:none}.plain-link:hover{text-decoration:underline}.badge-ink{border:1px solid #CFCFC6;padding:7px 10px;font-size:10px;letter-spacing:1.1px;font-weight:600;color:#777C73}.team-layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:42px;padding-top:45px;align-items:start}.team-sidebar{position:sticky;top:125px}.team-sidebar h1{font-size:38px;margin:15px 0}.team-sidebar>p{font-size:14px;color:#7B8076}.internal-warning{font-size:12px;line-height:1.55;background:#F7E7E2;color:#7F4D43;padding:14px 15px;margin:23px 0 25px}.team-menu{display:grid;gap:3px}.team-menu button{border:0;text-align:left;background:none;padding:12px 13px;font-size:13px;color:#777B72;display:flex;align-items:center;gap:12px}.team-menu button.active{background:#fff;color:#33372F;font-weight:600;box-shadow:inset 2px 0 #BD9657}.team-menu button span{color:#AE945D;font-size:11px}.team-content{background:#fff;padding:37px 39px;box-shadow:var(--shadow);min-height:80vh;margin-bottom:55px;border:1px solid #E9E6DF}.team-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:1px solid var(--line);padding-bottom:22px}.team-heading h2{font-size:31px;margin:8px 0}.team-heading p{margin:0;font-size:13px}.action-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.file-label{cursor:pointer}.team-notice{font-size:12px;background:#F6F3EB;color:#726A5D;padding:12px 16px;margin:23px 0}.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:21px 0}.stat-card{background:#F8F7F3;padding:16px}.stat-card small{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8C8E85}.stat-card strong{display:block;font:500 28px var(--display);margin-top:8px}.data-grid{display:grid;gap:10px}.data-row{display:grid;grid-template-columns:36% 1fr;gap:16px;padding:11px 0;border-bottom:1px solid #EFEDE8;font-size:14px}.data-row>strong{font-size:13px;font-weight:500;color:#787B72}.data-row>span{overflow-wrap:anywhere;white-space:pre-line}.technical-list{display:grid;gap:19px;margin-top:26px}.technical-field{display:grid;gap:8px;border-bottom:1px solid #EEEEE9;padding-bottom:18px}.technical-field label{font-size:13px;font-weight:600}.technical-field label small{display:block;color:#969990;font-weight:400;font-size:12px}.technical-input{min-height:44px;padding:10px 13px;border:1px solid var(--line);background:#FCFCFA;color:var(--ink);width:100%}.technical-textarea{min-height:92px;resize:vertical}.technical-status{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.technical-status label{font-size:11px;color:#8C8E84}.technical-status select{max-width:200px;padding:9px;border:1px solid var(--line);font-size:12px;background:white}.tag{display:inline-flex;padding:4px 9px;border:1px solid #DBD7CC;font-size:11px;color:#777B72;border-radius:20px}.end-note{font-size:12px;color:#8A8E85;margin:20px 0}.separator{border:0;border-top:1px solid var(--line);margin:20px 0}.hidden{display:none!important}
+@media(max-width:1100px){.layout{gap:24px;grid-template-columns:minmax(260px,38%) minmax(0,62%)}.form-content{padding:36px 30px}.bottom-nav{padding:18px 30px}.stepper{padding:20px 24px}.team-layout{gap:20px;grid-template-columns:220px minmax(0,1fr)}.team-content{padding:27px 24px}}
+@media(max-width:760px){.container{padding:0 18px}.topbar{height:68px}.progress-line{top:68px}.brand img{max-height:41px;max-width:135px}.brand-fallback strong{font-size:18px}.draft-state{display:none}.layout{display:block;min-height:0}.intro-panel{min-height:auto}.intro-sticky{position:static;padding-top:28px}.intro-panel .eyebrow,.intro-gu,.sketch,.side-foot{display:none}.intro-panel h1{font-size:29px;max-width:none;margin:0 0 20px}.intro-panel h1 em{font-size:31px}.form-shell{margin:0 0 35px;min-height:590px}.stepper{padding:14px 18px}.step-item{font-size:10px}.step-sep{width:9px}.step-number{min-width:24px;height:24px}.form-content{padding:29px 23px}.form-content h2{font-size:32px}.bottom-nav{padding:14px 20px;position:sticky;bottom:0;background:#fff;z-index:20}.bottom-nav .btn{padding:12px 15px}.service-grid{gap:8px}.service-card{min-height:94px;padding:12px}.welcome-list{gap:8px}.site-footer{padding-bottom:25px;display:grid;gap:6px}.team-layout{display:block;padding-top:21px}.team-sidebar{position:static}.team-sidebar h1{font-size:29px}.team-menu{display:flex;overflow-x:auto;padding:0 0 13px}.team-menu button{flex:none;font-size:12px}.team-content{margin-bottom:28px;min-height:0}.team-heading{display:block}.team-heading h2{font-size:27px}.action-row{margin-top:16px}.stat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:430px){.container{padding:0 12px}.top-right{gap:8px}.brand img{max-width:100px}.intro-panel h1{font-size:26px}.form-content{padding:24px 18px}.form-content h2{font-size:28px}.stepper{padding:12px}.step-sep{display:none}.choice{font-size:12px;padding:10px}.review-row,.data-row{grid-template-columns:1fr;gap:3px}.two-cols{grid-template-columns:1fr}.team-content{padding:22px 16px}.stat-grid{grid-template-columns:1fr 1fr}.bottom-nav{padding:12px}.bottom-nav .btn{font-size:12px}.bottom-nav .btn span{display:none}}
+@media print{.topbar,.progress-line,.intro-panel,.stepper,.bottom-nav,.site-footer,.team-sidebar,.action-row,.team-notice,.review-actions,.plain-link{display:none!important}body{background:white!important}.container,.layout,.team-layout{max-width:none;display:block;padding:0}.form-shell,.team-content{margin:0;border:0;box-shadow:none;padding:0;min-height:0}.form-content{padding:0}.review-card,.data-row{break-inside:avoid}.review-card-head{background:#eee!important;print-color-adjust:exact}.form-content h2{font-size:24px} .form-timing{display:none}}
+
+.room-panel{padding:17px;border:1px solid var(--line);background:#FDFCFA;margin:0 0 14px}.room-panel h4{margin:0 0 18px;font:600 12px var(--font);letter-spacing:1.1px;color:#9E7A42}.room-panel h4 span{font:400 12px 'Hind Vadodara',sans-serif;letter-spacing:0;color:#91928B}
+
+.service-card strong,.service-card small{display:block}.service-card small{margin-top:5px}
+
+</style>
+</head><body class="client-page">
+<header class="topbar"><div class="container topbar-inner">
+  <a class="brand" href="index.html" aria-label="Antariksh Design Studio home"><span class="brand-fallback"><strong>ANTARIKSH</strong><small>DESIGN STUDIO</small></span></a>
+  <div class="top-right"><span class="draft-state" id="savedIndicator">A thoughtful beginning</span><button class="language-toggle" id="languageToggle" type="button" title="Change language">EN <span> / </span> ગુ</button></div>
+</div></header>
+<div class="progress-line"><div id="progressLine"></div></div>
+<main class="container layout">
+  <aside class="intro-panel"><div class="intro-sticky"><span class="eyebrow">ANTARIKSH / DESIGN STUDIO</span>
+    <h1>Every great space begins with <em>a conversation.</em></h1>
+    <p class="intro-gu" lang="gu">દરેક સુંદર જગ્યાની શરૂઆત એક સારી વાતચીતથી થાય છે.</p>
+    <div class="sketch" aria-hidden="true"><svg viewBox="0 0 430 242" role="img"><g stroke="#B8A78B" fill="none" stroke-width="1.1"><path d="M40 195H394M65 195V94L201 32 345 96V195M201 32V196M65 94l136 68 144-66M201 162l-1-130M100 111v84M134 127v68M270 129v66M305 112v83M100 111l35-17 35 16v42M251 126l45-22 28 13v54M65 94l60-36 137 64M201 32l-53 76M345 96l-67-39M40 195l-19 16M394 195l19 16"/><path stroke-dasharray="4 6" d="M20 222h390M54 196v-42M356 196V99M20 222l47-27M410 222l-66-27"/></g><circle fill="#C79C52" cx="201" cy="32" r="4"/></svg></div>
+    <div class="side-foot"><span class="small-rule"></span><span>ARCHITECTURE &nbsp;/&nbsp; INTERIORS &nbsp;/&nbsp; LANDSCAPE</span><p>Surat, Gujarat · Est. 2018</p></div>
+  </div></aside>
+  <section class="form-shell" aria-label="Client design brief">
+    <div class="stepper" id="stepper" aria-label="Form progress"></div>
+    <div id="app" aria-live="polite"></div>
+    <div class="bottom-nav" id="bottomNav"><button class="btn btn-outline" id="backBtn" type="button">← Back <span lang="gu">પાછળ</span></button><button class="btn btn-primary" id="nextBtn" type="button">Continue → <span lang="gu">આગળ</span></button></div>
+  </section>
+</main>
+<footer class="site-footer container"><span>© Antariksh Design Studio</span><span>Architecture · Interior · Landscape · Product Design</span></footer>
+<script>
+/* Antariksh Design Studio — editable question library. No external dependencies. */
+window.ANTARIKSH_SCHEMA = (() => {
+  const q = (id,en,gu,type='text',opts=[],extra={}) => ({id,en,gu,type,opts,...extra});
+  const SERVICE_LABELS = {
+    'Architecture':'Architecture / Building Design',
+    'Residential Interior':'Residential Interior',
+    'Commercial Interior':'Commercial Interior',
+    'Landscape':'Landscape Design',
+    'Renovation':'Renovation & Adaptive Reuse'
+  };
+  const SERVICE_GU = {
+    'Architecture':'આર્કિટેક્ચર',
+    'Residential Interior':'રેસિડેન્શિયલ ઇન્ટિરિયર',
+    'Commercial Interior':'કોમર્શિયલ ઇન્ટિરિયર',
+    'Landscape':'લેન્ડસ્કેપ ડિઝાઇન',
+    'Renovation':'રિનોવેશન'
+  };
+  const steps = [
+    {id:'about',en:'Let’s get acquainted',gu:'તમારા વિશે થોડું જાણીએ',hint:'Just the essentials to begin a conversation.',fields:[
+      q('name','Your name','તમારું નામ','text',[],{required:true,placeholder:'Full name',autocomplete:'name'}),
+      q('phone','WhatsApp mobile number','WhatsApp મોબાઇલ નંબર','tel',[],{required:true,placeholder:'10-digit mobile number',autocomplete:'tel'}),
+      q('email','Email address','ઈમેલ એડ્રેસ','email',[],{placeholder:'Optional',autocomplete:'email'}),
+      q('source','How did you hear about us?','અમારા વિશે ક્યાંથી જાણ્યું?','single',['Friend / family','Existing client','Instagram','Google / website','Builder / developer','Other']),
+      q('decisionMakers','Who will be involved in design decisions?','ડિઝાઇનના નિર્ણયમાં કોણ જોડાશે?','multi',['Me','Spouse / family','Business partner','Parents','Other'])
+    ]},
+    {id:'project',en:'Tell us about the project',gu:'તમારા પ્રોજેક્ટ વિશે જણાવો',hint:'The next questions will adapt to your service.',fields:[
+      q('service','What would you like us to design?','તમે કઈ પ્રકારની ડિઝાઇન ઇચ્છો છો?','service',Object.keys(SERVICE_LABELS),{required:true}),
+      q('additionalServices','Are there any related services?','અન્ય કઈ સેવાઓની જરૂર છે?','multi',['Architecture','Interior Design','Landscape','Furniture / Product Design','Not sure']),
+      q('propertyType','What type of space is it?','આ કયા પ્રકારની જગ્યા છે?','single',['Apartment / Penthouse','Independent bungalow / villa','Row house','Farmhouse','Plot / land','Other'],{whenServices:['Architecture','Residential Interior','Renovation']}),
+      q('commercialType','Your commercial space','કોમર્શિયલ જગ્યાનો પ્રકાર','single',['Office','Retail / showroom','Restaurant / café','Clinic / wellness','Hospitality','Other'],{whenServices:['Commercial Interior']}),
+      q('landscapeType','Where is the outdoor space?','આઉટડોર જગ્યા ક્યાં છે?','single',['Private bungalow garden','Terrace / balcony','Farmhouse / resort','Residential common area','Commercial campus','Other'],{whenServices:['Landscape']}),
+      q('location','Site location / area','સાઇટનું સ્થાન / વિસ્તાર','text',[],{required:true,placeholder:'e.g. Katargam, Surat'}),
+      q('area','Approximate area','અંદાજિત વિસ્તાર','text',[],{placeholder:'e.g. 2500',inputmode:'decimal'}),
+      q('areaUnit','Area unit','વિસ્તારનું એકમ','single',['sq ft','sq m','sq yd','Not sure']),
+      q('siteStatus','Present condition','હાલની સાઇટની સ્થિતિ','single',['Only plot / vacant land','Under construction','Bare shell','Builder finished','Existing / occupied','Not decided']),
+      q('siteDocs','Do you have drawings or measurements?','પ્લાન અથવા માપ ઉપલબ્ધ છે?','single',['Yes, I can share','Not yet','Not sure'])
+    ]},
+    {id:'vision',en:'How should it feel?',gu:'ડિઝાઇનનો અનુભવ કેવો હોવો જોઈએ?',hint:'Your habits and priorities guide better design.',fields:[
+      q('projectPurpose','What should this space do for you?','આ જગ્યા તમારી કઈ જરૂરિયાત પૂરી કરે?','textarea',[],{placeholder:'Tell us your goals, lifestyle, or business needs…'}),
+      q('priorities','What matters most? Choose up to three.','તમારા માટે સૌથી મહત્વની ૩ બાબતો પસંદ કરો','multi',['Functionality','Timeless design','Natural light & ventilation','Storage','Privacy','Vastu','Easy maintenance','Sustainability','Premium materials','Value for budget'],{max:3}),
+      q('aesthetic','Which design direction appeals to you?','કઈ ડિઝાઇન શૈલી ગમે છે?','multi',['Warm minimal','Contemporary','Modern Indian','Traditional / heritage','Nature-inspired','Bold / expressive','Not sure – suggest']),
+      q('familyPattern','How will your home be used?','ઘરનો દૈનિક ઉપયોગ કેવો છે?','multi',['Multi-generation family','Children','Elderly residents','Pets','Guests frequently','Work from home','Frequent celebrations','Quiet retreat'],{whenServices:['Architecture','Residential Interior','Renovation']}),
+      q('vastu','Vastu preferences','વાસ્તુ વિશે તમારી પસંદગી','single',['Essential','Prefer where feasible','No specific requirement','Discuss with consultant'],{whenServices:['Architecture','Residential Interior','Renovation']}),
+      q('mustHave','Three things your project absolutely needs','ત્રણ સૌથી જરૂરી બાબતો','textarea',[],{placeholder:'e.g. bright kitchen, separate puja, shaded courtyard'}),
+      q('avoid','Anything you definitely want to avoid?','શું ટાળવા માંગો છો?','textarea',[],{placeholder:'e.g. high maintenance, dark spaces'}),
+      q('inspiration','Do you have visual references?','તમારી પાસે રેફરન્સ ઇમેજ છે?','single',['Yes, I will upload / share','I have ideas, no images','Please suggest'])
+    ]},
+    {id:'practical',en:'Budget, timeline & scope',gu:'બજેટ, સમય અને કામનો વ્યાપ',hint:'An estimate is enough; nothing here commits you to a fee.',fields:[
+      q('budget','Indicative project budget','પ્રોજેક્ટનું અંદાજિત બજેટ','single',['Below ₹35 lakh','₹35–50 lakh','₹50–75 lakh','₹75 lakh–₹1 crore','₹1–2 crore','₹2 crore+','Prefer to discuss / not sure'],{note:'Please indicate the approximate project cost, not our professional fee.'}),
+      q('budgetCovers','What is included in that budget?','આ બજેટમાં કઈ બાબતો સામેલ છે?','multi',['Civil / construction','Interior fixed furniture','Loose furniture','Lighting / electrical','HVAC & services','Landscape / outdoor works','Decor / artwork','Not sure']),
+      q('timeline','When would you like the project completed?','પ્રોજેક્ટ ક્યારે પૂર્ણ કરવો છે?','text',[],{placeholder:'e.g. Diwali 2027 / within 18 months'}),
+      q('schedule','How fixed is the timeline?','સમયમર્યાદા કેટલી નક્કી છે?','single',['Fixed event / possession date','Flexible','Still exploring']),
+      q('scope','What kind of support do you expect?','અમારી પાસેથી કઈ મદદ જોઈએ છે?','multi',['Concept & design','Detailed working drawings','Material & product selection','Periodic site visits','Consultant coordination','Not sure – guide me']),
+      q('otherNotes','Anything else you want us to know?','અન્ય કોઈ ખાસ નોંધ?','textarea',[],{placeholder:'Optional'}),
+      q('contactTime','Convenient time to connect','સંપર્ક કરવાનો અનુકૂળ સમય','single',['Weekday daytime','Weekday evening','Weekend','Flexible'])
+    ]}
+  ];
+  const detailed = {
+    'Architecture': [
+      {title:'Site & planning',gu:'સાઇટ અને પ્લાનિંગ',fields:[
+        q('archPlot','Plot dimensions / approximate size','પ્લોટનું માપ','text',[],{placeholder:'e.g. 60 × 80 ft'}),
+        q('archRoad','Site access / road sides','રસ્તો અને પ્રવેશ','single',['One-side road','Corner plot','Three-side open','Not sure']),
+        q('archRooms','Required spaces','જરૂરી જગ્યાઓ','multi',['Formal living','Family living','Dining','Puja room','Study / office','Guest bedroom','Servant room','Gym','Home theatre','Courtyard','Utility / store','Swimming pool']),
+        q('archBed','Number of bedrooms','બેડરૂમની સંખ્યા','single',['2','3','4','5','6+','Not decided']),
+        q('archFloors','Preferred floors','માળની પસંદગી','single',['Ground','G+1','G+2','G+3','As feasible']),
+        q('archCars','Car parking capacity','પાર્કિંગની જરૂર','single',['1','2','3','4+','Not sure']),
+        q('archGrowth','Future expansion requirements','ભવિષ્યના વિસ્તરણની જરૂર','multi',['Additional floor','More rooms','Lift provision','Rental unit','None','Discuss later']),
+        q('archOutdoor','Preferred outdoor features','બાહ્ય જગ્યાની જરૂર','multi',['Garden','Sit-out / verandah','Terrace garden','Courtyard','Water feature','Outdoor kitchen'])
+      ]},
+      {title:'Design intent',gu:'ડિઝાઇન દિશા',fields:[
+        q('archFacade','Facade expression','ફસાડનો દેખાવ','single',['Contemporary','Warm / natural','Traditional + modern','Not sure']),
+        q('archClimate','Environmental priorities','પર્યાવરણને લગતી બાબતો','multi',['Passive cooling','Daylight','Cross ventilation','Rainwater harvesting','Solar-ready','Shaded outdoor spaces']),
+        q('archSpecific','Any important site or family requirements?','અન્ય ખાસ જરૂરિયાત','textarea')
+      ]}
+    ],
+    'Residential Interior': [
+      {title:'Rooms & living patterns',gu:'રૂમ અને ઉપયોગ',fields:[
+        q('intBedrooms','How many bedrooms need interior design?','કેટલા બેડરૂમનું ઇન્ટિરિયર કરવાનું છે?','single',['1','2','3','4','5+']),
+        q('intLiving','Living and dining needs','લિવિંગ અને ડાઇનિંગ','multi',['Formal sofa','Everyday family seating','TV / entertainment','Swing','Display / art wall','4-seat dining','6-seat dining','8+ seat dining','Puja space']),
+        q('intKitchenHabits','Kitchen usage','રસોડાનો ઉપયોગ','multi',['Daily heavy cooking','Light cooking','Separate wet kitchen','Multiple cooks','Large family storage','Frequent entertaining']),
+        q('intAppliances','Required kitchen appliances','કિચનના ઉપકરણો','multi',['Chimney + hob','Oven / microwave','Dishwasher','Built-in refrigerator','RO purifier','Deep freezer','Washing / utility']),
+        q('intBaths','Bathroom priorities','બાથરૂમની જરૂરિયાત','multi',['Shower enclosure','Bathtub','Double basin','Elder-friendly fittings','Extra storage','Easy maintenance']),
+        q('intStorage','Storage priorities','સ્ટોરેજની પ્રાથમિકતા','multi',['Seasonal storage','Saree / ethnic wear','Luggage','Books','Shoe collection','Documents','Jewellery / locker','Kids toys']),
+        q('intExtras','Additional spaces','અન્ય જગ્યાઓ','multi',['Home office','Guest room','Study zone','Walk-in wardrobe','Gym','Home theatre','Utility']),
+        q('intExisting','Existing furniture to retain','જૂનું ફર્નિચર જાળવવું છે?','textarea',[],{placeholder:'Optional'})
+      ]},
+      {title:'Room-by-room brief',gu:'રૂમ પ્રમાણે માહિતી',fields:[
+        q('intRoomNotes','Shared notes for all bedrooms','બધા બેડરૂમ માટે સામાન્ય નોંધ','textarea',[],{placeholder:'Optional design preferences that apply to every bedroom'})
+      ]},
+      {title:'Materials & experience',gu:'મટિરિયલ અને અનુભવ',fields:[
+        q('intMaterials','Material preferences','મટિરિયલની પસંદગી','multi',['Natural wood','Veneer','Stone / marble','Textured paint','Fabric / upholstery','Metal / glass','Easy-clean laminates','Suggest for me']),
+        q('intLighting','Lighting preferences','લાઇટિંગ','multi',['Warm ambient','Task lighting','Decorative pendants','Smart controls','Natural daylight']),
+        q('intTech','Technology needs','ટેકનોલોજી','multi',['Home automation','CCTV','Wi-Fi points','Audio / home theatre','None'])
+      ]}
+    ],
+    'Commercial Interior': [
+      {title:'Business & operations',gu:'વ્યવસાયની જરૂરિયાત',fields:[
+        q('comBusiness','Type of business / brand','વ્યવસાયનું નામ અને પ્રકાર','text',[],{placeholder:'e.g. Textile showroom, CA practice'}),
+        q('comStaff','Team now and planned capacity','હાલની અને ભવિષ્યની સ્ટાફ સંખ્યા','text',[],{placeholder:'e.g. 12 now, 20 in 3 years'}),
+        q('comFootfall','Approximate visitors / day','દરરોજ આવનાર મુલાકાતીઓ','single',['0–10','10–30','30–100','100+','Not sure']),
+        q('comRooms','Spaces required','જરૂરી જગ્યાઓ','multi',['Reception','Waiting','Owner cabin','Meeting room','Workstations','Display zones','Cash counter','Pantry','Toilets','Store','Server / IT','Photo / trial room','Staff lockers']),
+        q('comJourney','Customer / visitor experience','ગ્રાહકનો અનુભવ','textarea',[],{placeholder:'What should customers feel and do as they enter?'}),
+        q('comBrand','Brand identity status','બ્રાન્ડિંગ','single',['Existing guidelines','Logo & colors only','Need a complete direction','Not required']),
+        q('comSecurity','Security and technical needs','સુરક્ષા અને ટેક્નિકલ જરૂર','multi',['Access control','CCTV','UPS / backup','Acoustics','POS / billing','Server rack','Display lighting']),
+        q('comWork','Will operations continue during work?','કામ દરમિયાન વ્યવસાય ચાલુ રહેશે?','single',['Yes','No','Phased work'])
+      ]}
+    ],
+    'Landscape': [
+      {title:'Outdoor living',gu:'આઉટડોર ઉપયોગ',fields:[
+        q('landActivities','How will the landscape be used?','લેન્ડસ્કેપનો ઉપયોગ શું હશે?','multi',['Morning walk','Family seating','Events / gatherings','Children play','Meditation / yoga','Kitchen garden','Outdoor dining','Pet-friendly','Visual garden only']),
+        q('landFeatures','Desired features','કઈ સુવિધાઓ જોઈએ?','multi',['Lawn','Native planting','Shade trees','Pergola / gazebo','Water feature','Deck / sit-out','Pathways','Outdoor kitchen','Vertical green','Kitchen garden']),
+        q('landSun','Site sun exposure','તડકો કેટલો પડે છે?','single',['Mostly full sun','Partly shaded','Mostly shaded','Not sure']),
+        q('landWater','Water source available','પાણીની સુવિધા','single',['Municipal','Borewell','Treated / recycled','Not sure']),
+        q('landIrrigation','Irrigation preference','સિંચાઈ','single',['Automated drip','Manual','Designer suggest']),
+        q('landMaintenance','Preferred maintenance level','જાળવણીની પસંદગી','single',['Low maintenance','Moderate','Intensive gardening is fine']),
+        q('landPlants','Planting preferences','છોડ અંગે પસંદગી','multi',['Native plants','Flowering','Fragrant','Fruit / edible','Seasonal color','Privacy hedges','Low-water plants']),
+        q('landPractical','Practical conditions to consider','ધ્યાનમાં લેવા જેવી બાબતો','multi',['Drainage issue','Sloping land','Basement below garden','Existing trees','Pets','Strong wind','Utilities / services below']),
+        q('landMood','Landscape atmosphere','લેન્ડસ્કેપ કેવું લાગે?','textarea',[],{placeholder:'e.g. tropical yet calm, shaded and low maintenance'})
+      ]}
+    ],
+    'Renovation': [
+      {title:'Existing condition & changes',gu:'હાલની સ્થિતિ અને ફેરફારો',fields:[
+        q('renoWhy','What is not working today?','હાલમાં મુખ્ય સમસ્યા શું છે?','multi',['Layout inefficient','Outdated look','Insufficient storage','Poor daylight','Ventilation','Water leakage','Electrical / plumbing','Accessibility']),
+        q('renoRetain','What must stay untouched?','કઈ વસ્તુ જાળવવી છે?','textarea',[],{placeholder:'Walls, flooring, woodwork, artwork, family pieces…'}),
+        q('renoChange','What do you want changed?','શું બદલવું છે?','multi',['Kitchen','Bathrooms','Flooring','Walls / partitions','Ceiling / lighting','Furniture','Facade','Outdoor areas']),
+        q('renoOccupancy','Will anyone occupy the site during the work?','કામ દરમિયાન જગ્યા વપરાશે?','single',['Yes','No','Partly']),
+        q('renoServices','Known condition of existing services','જૂની સર્વિસની સ્થિતિ','single',['Good','Needs overhaul','Not checked']),
+        q('renoDocs','Existing drawings / approvals available?','જૂના પ્લાન / મંજૂરી છે?','single',['Yes','No','Not sure']),
+        q('renoConstraints','Known constraints or structural concerns','અન્ય મર્યાદા','textarea',[],{placeholder:'e.g. Cannot change structure, society restrictions'})
+      ]}
+    ]
+  };
+  function roomFields(index){const p='room'+index+'_';return [
+    q(p+'name','Room name / occupant','રૂમનું નામ / વપરાશકર્તા','text',[],{placeholder:'e.g. Parents bedroom'}),
+    q(p+'bed','Bed size / type','બેડનું માપ અને પ્રકાર','single',['King','Queen','Single / twin','Existing bed','Designer suggest']),
+    q(p+'wardrobe','Wardrobe and storage requirements','કબાટ અને સ્ટોરેજ','multi',['Wardrobe','Walk-in dressing','Dressing mirror','Jewellery locker','Saree storage','Luggage / loft','Books']),
+    q(p+'features','Room-specific facilities','રૂમની ખાસ સુવિધા','multi',['TV','Work / study table','Reading chair','Attached bathroom','Seating','Blackout curtains','Accessibility provisions']),
+    q(p+'notes','Other requirements','અન્ય જરૂરિયાત','textarea',[],{placeholder:'Anything unique to this room…'})
+  ];}
+  const technical = [
+    {key:'project',title:'Project administration',gu:'પ્રોજેક્ટ મેનેજમેન્ટ',fields:[
+      q('projectCode','Project code','પ્રોજેક્ટ કોડ'),q('assignedArchitect','Lead designer / owner','મુખ્ય ડિઝાઇનર'),q('meetingDate','Client meeting date','મીટિંગ તારીખ','date'),q('appointmentStage','Appointment status','નિયુક્તિ સ્થિતિ','single',['Inquiry','Consultation','Proposal','Appointed','On hold']),q('contractScope','Agreed deliverables and exclusions','સહમત કામનો વ્યાપ','textarea'),q('nextAction','Next action / responsibility','આગળનું કામ','textarea')
+    ]},
+    {key:'survey',title:'Survey & statutory checks',gu:'સાઇટ અને નિયમો',fields:[
+      q('siteSurvey','Site measurement / survey status','માપણીની સ્થિતિ','single',['Not scheduled','Pending','Received','Verified']),q('surveyNotes','Site dimensions / levels / conditions','સાઇટ માપ, લેવલ અને સ્થિતિ','textarea'),q('boundaryCheck','Boundary / title / ownership verification','બાઉન્ડરી અને માલિકીની ચકાસણી','textarea'),q('statutory','Zoning, setbacks, FSI, height and fire requirements','નિયમો અને મંજૂરીની વિગતો','textarea'),q('existingStructure','Structure and condition assessment','સ્ટ્રક્ચરની સ્થિતિ','textarea'),q('utilities','Existing utilities / drainage / services','હાલની સર્વિસ','textarea'),q('climateNotes','Sun, wind, noise and surroundings','તડકો, પવન, અવાજ, આસપાસ','textarea')
+    ]},
+    {key:'architecture',title:'Architecture planning',gu:'આર્કિટેક્ચર પ્લાનિંગ',fields:[
+      q('areaProgram','Area program / room schedule','એરિયા અને રૂમ શેડ્યૂલ','textarea'),q('parkingAccess','Access, parking and circulation','પ્રવેશ, પાર્કિંગ અને આવનજાવન','textarea'),q('buildingEnvelope','Permissible building envelope / levels','બિલ્ડિંગનો વ્યાપ / લેવલ','textarea'),q('accessibility','Accessibility and universal design','એકસેસિબિલિટી','textarea'),q('facadeTech','Facade, shading and materials','ફસાડ અને મટિરિયલ','textarea'),q('futureProvision','Structural / future provisions','ભવિષ્યની જોગવાઈ','textarea')
+    ]},
+    {key:'interior',title:'Interior room & specification brief',gu:'ઇન્ટિરિયર વિગત',fields:[
+      q('roomSchedule','Room-by-room functional schedule','રૂમ પ્રમાણે શેડ્યૂલ','textarea'),q('furnitureSchedule','Furniture / wardrobe / joinery requirements','ફર્નિચર અને સ્ટોરેજ','textarea'),q('materialsSchedule','Floor, wall, ceiling and finish schedule','ફ્લોર / વોલ / સીલિંગ મટિરિયલ','textarea'),q('lightingSchedule','Lighting and switching strategy','લાઇટિંગ અને સ્વીચિંગ','textarea'),q('hvacElectrical','Electrical, HVAC, data and automation','ઇલેક્ટ્રિકલ અને HVAC','textarea'),q('plumbingSchedule','Plumbing / sanitary / waterproofing','પ્લમ્બિંગ અને વોટરપ્રૂફિંગ','textarea'),q('acousticNeeds','Acoustic and special detailing','એકુસ્ટિક્સ','textarea')
+    ]},
+    {key:'landscape',title:'Landscape technical brief',gu:'લેન્ડસ્કેપ ટેક્નિકલ',fields:[
+      q('landArea','Landscape area / levels / slopes','લેન્ડસ્કેપ એરિયા અને લેવલ','textarea'),q('hardscape','Hardscape, paths, edge details','હાર્ડસ્કેપ વિગત','textarea'),q('planting','Plant palette / spacing / soils','પ્લાન્ટિંગ અને માટી','textarea'),q('irrigationPlan','Water budget / irrigation zones','સિંચાઈ યોજના','textarea'),q('landDrainage','Drainage and rainwater considerations','ડ્રેનેજ','textarea'),q('landLighting','Landscape lighting and maintenance','લાઇટિંગ અને જાળવણી','textarea')
+    ]},
+    {key:'coordination',title:'Coordination & decisions',gu:'કોર્ડિનેશન અને નિર્ણયો',fields:[
+      q('consultants','Consultant coordination / owner','કન્સલ્ટન્ટ કોર્ડિનેશન','textarea'),q('approved','Decisions confirmed by client','ક્લાયન્ટે મંજૂર કરેલા નિર્ણય','textarea'),q('pending','Pending questions / information','બાકી વિગતો','textarea'),q('risks','Risks, assumptions and constraints','જોખમ અને ધારણાઓ','textarea'),q('drawings','Drawing list / issue stages','ડ્રોઇંગ યાદી','textarea'),q('nextMeeting','Next review / meeting','આગામી મીટિંગ','date')
+    ]}
+  ];
+  return {q,steps,detailed,roomFields,technical,SERVICE_LABELS,SERVICE_GU};
+})();
+
+</script><script>
+(()=>{'use strict';
+const S=window.ANTARIKSH_SCHEMA;
+const KEY='antariksh-v2-client-draft';
+const PHONE='917621003444';
+const stages=[{en:'Welcome',gu:'શરૂઆત'},{en:'About',gu:'પરિચય'},{en:'Project',gu:'પ્રોજેક્ટ'},{en:'Vision',gu:'પસંદગી'},{en:'Plan',gu:'આયોજન'},{en:'Details',gu:'વિગતો'},{en:'Review',gu:'તપાસ'}];
+const st={stage:0,lang:'en',answers:{},refs:[],fileObjects:[],completed:false};
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=v=>Array.isArray(v)?v.join(' · '):String(v??'').trim();
+const answered=v=>Array.isArray(v)?v.length>0:String(v??'').trim().length>0;
+const visible=f=>!f.whenServices||f.whenServices.includes(st.answers.service);
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY)||'{}');if(v&&typeof v==='object'){st.answers=v.answers&&typeof v.answers==='object'?v.answers:{};st.stage=Math.max(0,Math.min(6,Number(v.stage)||0));st.refs=Array.isArray(v.refs)?v.refs:[];st.lang=v.lang==='gu'?'gu':'en';}}catch(e){console.warn('Local draft unavailable');}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({stage:st.stage,lang:st.lang,answers:st.answers,refs:st.refs,savedAt:new Date().toISOString()}));$('savedIndicator').textContent='Saved on this device · આ ડિવાઇસમાં સેવ';}catch(e){$('savedIndicator').textContent='Draft not saved';}}
+function target(){return window.matchMedia('(max-width:760px)').matches?0:0;}
+function go(n){st.stage=Math.min(6,Math.max(0,n));save();render();window.scrollTo({top:target(),behavior:'instant'});}
+function stepper(){let html='';stages.forEach((s,i)=>{html+=`<button class="step-item ${i===st.stage?'active':i<st.stage?'done':''}" type="button" data-step="${i}" ${i===st.stage?'aria-current="step"':''}><span class="step-number">${i<st.stage?'✓':i||'•'}</span>${esc(st.lang==='gu'?s.gu:s.en)}</button>`;if(i!==stages.length-1)html+='<span class="step-sep" aria-hidden="true"></span>';});$('stepper').innerHTML=html;$('progressLine').style.width=(st.stage/6*100)+'%';}
+function title(en,gu){return st.lang==='gu'?`${esc(gu)}<span class="section-gu">${esc(en)}</span>`:`${esc(en)}<span class="section-gu" lang="gu">${esc(gu)}</span>`;}
+function fLabel(f){return st.lang==='gu'?`<span lang="gu">${esc(f.gu)}</span><span class="gu">${esc(f.en)}</span>`:`${esc(f.en)}<span class="gu" lang="gu">${esc(f.gu)}</span>`;}
+function header(num,en,gu,hint,timing){return `<div class="form-meta"><span class="form-stepcount">${esc(num)}</span><span class="form-timing">${esc(timing||'About 2 minutes')}</span></div><h2>${title(en,gu)}</h2><p class="section-description">${esc(hint)}</p>`;}
+function fieldHTML(f){if(!visible(f))return '';const v=st.answers[f.id],id='f-'+f.id;
+  let html=`<div class="field" id="wrap-${esc(f.id)}"><label class="field-label" ${['text','tel','email','date','textarea','number'].includes(f.type)?'for="'+id+'"':''}>${fLabel(f)}${f.required?' <span class="required-mark">*</span>':''}</label>`;
+  if(f.note)html+=`<p class="field-note">${esc(f.note)}</p>`;
+  if(f.max)html+=`<p class="field-note">Select up to ${f.max}. · વધુમાં વધુ ${f.max} પસંદ કરો</p>`;
+  if(f.type==='service'){
+    const icons={'Architecture':'⌂','Residential Interior':'▤','Commercial Interior':'▥','Landscape':'✳','Renovation':'↺'};
+    html+='<div class="service-grid">'+f.opts.map(o=>`<button type="button" class="service-card" data-field="${f.id}" data-value="${esc(o)}" data-choice="single" aria-pressed="${v===o}"><span class="service-icon">${icons[o]}</span><span><strong>${esc(S.SERVICE_LABELS[o])}</strong><small lang="gu">${esc(S.SERVICE_GU[o])}</small></span></button>`).join('')+'</div>';
+  }else if(f.type==='single'||f.type==='multi'){
+    html+='<div class="chip-list">'+f.opts.map(o=>{const on=f.type==='single'?v===o:Array.isArray(v)&&v.includes(o);return `<button type="button" class="choice ${f.type==='multi'?'multi':''}" aria-pressed="${on}" data-choice="${f.type}" data-field="${esc(f.id)}" data-value="${esc(o)}"><span class="dot" aria-hidden="true"></span>${esc(o)}</button>`;}).join('')+'</div>';
+  }else if(f.type==='textarea'){
+    html+=`<textarea id="${id}" class="textarea" data-input="${esc(f.id)}" rows="3" placeholder="${esc(f.placeholder||'Optional / ઇચ્છા મુજબ')}">${esc(v||'')}</textarea>`;
+  }else{
+    const ty=['tel','email','date','number'].includes(f.type)?f.type:'text';html+=`<input id="${id}" class="input" type="${ty}" value="${esc(v||'')}" data-input="${esc(f.id)}" ${f.autocomplete?'autocomplete="'+esc(f.autocomplete)+'"':''} ${f.inputmode?'inputmode="'+esc(f.inputmode)+'"':''} placeholder="${esc(f.placeholder||'Optional / ઇચ્છા મુજબ')}"/>`;
+  }return html+'</div>';
+}
+function fieldsBlock(fields){return '<div class="field-list">'+fields.map(fieldHTML).join('')+'</div>';}
+function welcome(){return `<div class="form-content welcome-panel"><span class="welcome-mark">YOUR PROJECT / YOUR STORY</span><div class="hero-number">01<span style="font-size:30px">/</span></div><h2>${title('Tell us about your space.','તમારી જગ્યા વિશે જણાવો.')}</h2><p>We would love to understand what you need before we begin designing. There are no wrong answers, and you can always discuss the details with our team.</p><p class="gu" lang="gu">ડિઝાઇન શરૂ થાય તે પહેલાં તમારી જરૂરિયાતો અને પસંદગી સમજીશું. જે જવાબ ખબર ન હોય તે છોડી શકો છો.</p><div class="welcome-list"><div class="welcome-item"><span class="num">01</span><span><strong>Easy introduction</strong><small>4 short steps · આશરે 5–7 મિનિટ</small></span></div><div class="welcome-item"><span class="num">02</span><span><strong>Questions adapt</strong><small>Based on your design service</small></span></div><div class="welcome-item"><span class="num">03</span><span><strong>More detail? Optional.</strong><small>Room-wise brief when ready</small></span></div><div class="welcome-item"><span class="num">04</span><span><strong>Review & share</strong><small>Send to our team on WhatsApp</small></span></div></div><div class="notice"><strong>A private first step.</strong> Your draft stays in this browser until you choose to export or share it. No automatic submission.</div></div>`;}
+function regularStep(n){const s=S.steps[n-1];return `<div class="form-content">${header('STEP 0'+n+' / 04',s.en,s.gu,s.hint,n===1?'1 minute':'2 minutes')}${fieldsBlock(s.fields)}</div>`;}
+function roomCount(){const n=parseInt(st.answers.intBedrooms,10);return Number.isFinite(n)?Math.min(5,Math.max(0,n)):0;}
+function dynamicRoomFields(){return st.answers.service==='Residential Interior'?Array.from({length:roomCount()},(_,i)=>S.roomFields(i+1)).flat():[];}
+function detailStep(){const service=st.answers.service,groups=S.detailed[service]||[];
+  const h=`<div class="form-content">${header('OPTIONAL / STEP 05','A little more detail','વધુ વિગત આપવી હોય તો','This helps our designers prepare. Skip anything you are unsure of.','Optional · 5–15 min')}<p class="detail-lead"><strong>${esc(S.SERVICE_LABELS[service]||'Your project')}</strong> · These are more specific questions. You do not have to answer everything now; the team can complete the technical brief during your consultation.</p>`;
+  const parts=groups.map(g=>{const room=g.title==='Room-by-room brief'&&service==='Residential Interior';let inner=room?(roomCount()?Array.from({length:roomCount()},(_,i)=>`<section class="room-panel"><h4>BEDROOM ${String(i+1).padStart(2,'0')} <span lang="gu">· બેડરૂમ ${i+1}</span></h4>${fieldsBlock(S.roomFields(i+1))}</section>`).join(''):'<p class="detail-lead">Select the number of bedrooms in the previous section to create individual room questionnaires. · પહેલા બેડરૂમની સંખ્યા પસંદ કરો.</p>'):'';return `<section class="detail-group"><h3 class="detail-title">${esc(g.title)} <small lang="gu">${esc(g.gu)}</small></h3>${inner}${fieldsBlock(g.fields)}</section>`;}).join('');
+  return h+parts+`<section class="detail-group"><h3 class="detail-title">Site plans & inspiration <small lang="gu">ફોટો / પ્લાન / રેફરન્સ</small></h3><div class="attachment-field"><label class="upload-label">＋ Choose files (images, PDF or drawings)<input type="file" id="fileUpload" accept="image/*,.pdf,.dwg,.dxf" multiple hidden></label><p class="field-note">You may also share the original files in WhatsApp. Files are not uploaded or backed up by this demo.</p><div class="upload-files" id="fileList">${fileListText()}</div></div></section></div>`;
+}
+function fileListText(){if(!st.refs.length)return 'No files selected yet.';return st.refs.map(r=>esc(r.name)).join(' · ');}
+function sectionRows(fields){const rows=fields.filter(f=>visible(f)&&answered(st.answers[f.id]));if(!rows.length)return '<div class="review-none">Nothing specified yet · ચર્ચા દરમિયાન નક્કી કરીશું</div>';
+return `<dl class="review-dl">${rows.map(f=>`<div class="review-row"><dt>${esc(f.en)}</dt><dd>${esc(fmt(st.answers[f.id]))}</dd></div>`).join('')}</dl>`;}
+function reviewCard(label,fields,stepNum){return `<div class="review-card"><div class="review-card-head"><span>${esc(label)}</span><button type="button" data-step="${stepNum}">Edit / ફેરફાર</button></div>${sectionRows(fields)}</div>`;}
+function review(){let html=`<div class="form-content review-content">${header('FINAL STEP / REVIEW','Your project, at a glance','તમારા પ્રોજેક્ટનો સારાંશ','Please review what you have shared. Add or change anything before sending.','Review & share')}`;
+  S.steps.forEach((s,i)=>html+=reviewCard(s.en,s.fields,i+1));
+  (S.detailed[st.answers.service]||[]).forEach(g=>html+=reviewCard(g.title,g.fields,5));for(let i=0;i<roomCount()&&st.answers.service==='Residential Interior';i++)html+=reviewCard('Bedroom '+(i+1),S.roomFields(i+1),5);
+  if(st.refs.length)html+=`<div class="review-card"><div class="review-card-head">Referenced files (names only)</div><div class="review-none">${fileListText()}</div></div>`;
+  html+=`<div class="detail-summary">✓ Your answers are ready for your first design consultation. You can still edit them.</div><div class="review-actions"><button type="button" class="btn btn-primary" id="whatsappBtn">Share via WhatsApp ↗</button><button type="button" class="btn btn-outline" id="printBtn">Save as PDF / Print</button><button type="button" class="btn btn-outline" id="jsonBtn">Export team JSON ↓</button></div><p class="action-help">WhatsApp opens with a pre-filled message; you must tap Send yourself. The PDF button uses your browser's print dialog (choose Save as PDF). Export team JSON transfers answers to the separate internal briefing prototype. Uploaded files must be sent separately.</p><p class="privacy-note">Prototype only. There is no database, secure login, automatic submission, file server or cross-device resume yet. Draft is saved only on this browser.</p></div>`;return html;
+}
+function render(){stepper();$('app').innerHTML=st.stage===0?welcome():st.stage<=4?regularStep(st.stage):st.stage===5?detailStep():review();$('backBtn').style.visibility=st.stage===0?'hidden':'visible';$('nextBtn').style.display=st.stage===6?'none':'';
+  $('nextBtn').innerHTML=st.stage===0?'Start the brief → <span lang="gu">શરૂ કરીએ</span>':st.stage===4?'More details → <span lang="gu">વધુ માહિતી</span>':st.stage===5?'Review answers → <span lang="gu">જવાબ તપાસો</span>':'Continue → <span lang="gu">આગળ</span>';
+  if($('skipDetails'))$('skipDetails').remove();if(st.stage===5){const b=document.createElement('button');b.className='btn btn-outline';b.id='skipDetails';b.textContent='Skip detailed questions';b.style.marginRight='auto';$('bottomNav').insertBefore(b,$('nextBtn'));}
+  const oldSkip=$('skipDetails');if(st.stage!==5&&oldSkip)oldSkip.remove();document.body.classList.toggle('gu-primary',st.lang==='gu');}
+function validate(){let needed=[];if(st.stage===1){if(!String(st.answers.name||'').trim())needed.push('Your name');if(String(st.answers.phone||'').replace(/\D/g,'').length!==10)needed.push('10-digit WhatsApp mobile number');if(st.answers.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.answers.email))needed.push('Valid email or leave blank');}if(st.stage===2){if(!st.answers.service)needed.push('Design service');if(!String(st.answers.location||'').trim())needed.push('Site location');}return needed;}
+function next(){const issues=validate();if(issues.length){const old=$('validationError');if(old)old.remove();const node=document.createElement('div');node.id='validationError';node.className='step-alert';node.textContent='Please complete: '+issues.join(', ')+' · કૃપા કરીને જરૂરી વિગતો ભરો.';$('app').querySelector('.form-content').prepend(node);return;}go(st.stage+1);}
+function choices(e){const b=e.target.closest('[data-choice]');if(!b)return;const id=b.dataset.field,val=b.dataset.value,type=b.dataset.choice;const f=[...S.steps.flatMap(s=>s.fields),...Object.values(S.detailed).flatMap(gr=>gr.flatMap(g=>g.fields)),...dynamicRoomFields()].find(x=>x.id===id);
+  if(type==='single')st.answers[id]=st.answers[id]===val?'':val;
+  else{const prev=Array.isArray(st.answers[id])?[...st.answers[id]]:[];const i=prev.indexOf(val);if(i>=0)prev.splice(i,1);else if(!f?.max||prev.length<f.max)prev.push(val);else{const n=$('validationError');if(n)n.remove();const note=document.createElement('div');note.className='step-alert';note.id='validationError';note.textContent=`Select only ${f.max} priorities. / માત્ર ${f.max} પસંદ કરો.`;$('app').querySelector('.field-list')?.prepend(note);return;}st.answers[id]=prev;}
+  if(id==='service'||id==='intBedrooms'){// A service/bedroom-count switch changes visible questions but preserves prior draft answers.
+    render();}else{const blocks=document.querySelectorAll(`[data-field="${CSS.escape(id)}"][data-choice]`);blocks.forEach(el=>{const on=type==='single'?st.answers[id]===el.dataset.value:(st.answers[id]||[]).includes(el.dataset.value);el.setAttribute('aria-pressed',String(on));});}
+  save();}
+function buildText(){let lines=['*ANTARIKSH DESIGN STUDIO*','Client Design Brief','',`Name: ${st.answers.name||''}`,`WhatsApp: ${st.answers.phone||''}`,''];
+ S.steps.forEach(s=>{lines.push('*'+s.en.toUpperCase()+'*');s.fields.filter(f=>visible(f)&&answered(st.answers[f.id])).forEach(f=>lines.push(`${f.en}: ${fmt(st.answers[f.id])}`));lines.push('');});
+ const groups=S.detailed[st.answers.service]||[];groups.forEach(g=>{const fields=g.fields.filter(f=>answered(st.answers[f.id]));if(fields.length){lines.push('*'+g.title.toUpperCase()+'*');fields.forEach(f=>lines.push(`${f.en}: ${fmt(st.answers[f.id])}`));lines.push('');}});if(st.answers.service==='Residential Interior'){for(let i=0;i<roomCount();i++){const fields=S.roomFields(i+1).filter(f=>answered(st.answers[f.id]));if(fields.length){lines.push('*BEDROOM '+(i+1)+'*');fields.forEach(f=>lines.push(`${f.en}: ${fmt(st.answers[f.id])}`));lines.push('');}}}
+ if(st.refs.length)lines.push('References (send separately): '+st.refs.map(x=>x.name).join(', '));return lines.join('\n');}
+function downloadJson(){const payload={format:'antariksh-client-brief',version:2,createdAt:new Date().toISOString(),service:st.answers.service||'',answers:st.answers,references:st.refs.map(({name,size,type})=>({name,size,type})),notice:'References are filenames only; files are not included. Import into team.html locally.'};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download='Antariksh-Brief-'+(st.answers.name||'Client').replace(/[^a-z0-9\-\s]/gi,'').trim().replace(/\s+/g,'-')+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
+function shareFiles(){if(!st.fileObjects.length)return;const fs=st.fileObjects;if(navigator.share&&navigator.canShare&&navigator.canShare({files:fs})){navigator.share({files:fs,title:'Antariksh design references'}).catch(()=>{});}else alert('Please send selected references as attachments in your WhatsApp conversation.');}
+function init(){load();render();$('nextBtn').addEventListener('click',next);$('backBtn').addEventListener('click',()=>go(st.stage-1));$('languageToggle').addEventListener('click',()=>{st.lang=st.lang==='gu'?'en':'gu';save();render();});
+  $('stepper').addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(b){const n=Number(b.dataset.step);if(n<=st.stage)go(n);}});
+  $('app').addEventListener('click',e=>{if(e.target.closest('[data-choice]')){choices(e);return;}const b=e.target.closest('[data-step]');if(b){go(Number(b.dataset.step));return;}
+    if(e.target.closest('#whatsappBtn')){const msg=buildText();if(msg.length>5000){if(!confirm('This brief is long. WhatsApp may truncate it. You can also export JSON. Continue?'))return;}window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer');}
+    if(e.target.closest('#printBtn'))window.print();if(e.target.closest('#jsonBtn'))downloadJson();});
+  $('app').addEventListener('input',e=>{const id=e.target.dataset.input;if(id){st.answers[id]=e.target.value;save();}});
+  $('app').addEventListener('change',e=>{if(e.target.id==='fileUpload'){const incoming=Array.from(e.target.files||[]);const valid=incoming.filter(f=>f.size<=15*1024*1024);st.fileObjects.push(...valid);st.refs.push(...valid.map(f=>({name:f.name,size:f.size,type:f.type})));save();const list=$('fileList');if(list)list.textContent=fileListText()+(valid.length<incoming.length?' · Files over 15 MB skipped.':'');}});
+  $('bottomNav').addEventListener('click',e=>{if(e.target.closest('#skipDetails'))go(6);});
+}
+init();
+})();
+
+</script>
+</body></html>
