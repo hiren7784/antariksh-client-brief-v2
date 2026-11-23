@@ -15,6 +15,8 @@
 
 .service-card strong,.service-card small{display:block}.service-card small{margin-top:5px}
 
+.file-list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}.file-item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #E6E3DB;border-radius:3px;padding:8px 10px;min-width:0}.file-thumb{position:relative;flex:none;width:46px;height:46px;border-radius:2px;background:#F1EDE3;display:flex;align-items:center;justify-content:center;overflow:hidden;font:600 9px var(--font);letter-spacing:.6px;color:#9B7A45}.file-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.file-meta{min-width:0;flex:1;display:grid;gap:2px}.file-meta strong{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-meta small{font-size:11.5px;color:var(--muted)}.file-remove{flex:none;background:none;border:0;color:#9B7A45;text-decoration:underline;text-underline-offset:3px;font-size:12px;padding:10px 4px}.file-warn{font-size:12px;color:#8D3632;background:#FBEDEC;padding:9px 12px;margin:10px 0 0;line-height:1.5}.review-files{padding:14px 18px 16px}.review-files .attachment-field{background:#FCFBF8}.share-plan{font-size:13px;color:#5E6258;line-height:1.55;margin:18px 0 0;padding:14px 16px;border:1px solid var(--line);background:#FCFBF8}.share-plan p{margin:0 0 6px}.share-plan p:last-child{margin-bottom:0}.share-plan strong{color:var(--ink)}.share-plan ul{margin:0 0 8px;padding-left:18px}.share-plan .muted{font-size:12px}.phone-ok{color:#4E6752;min-height:1em}.phone-ok:empty{display:none}.share-error{color:#8D3632}.link-row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13px;color:#B4AC9C;margin:14px 0 0}.link-btn[disabled]{opacity:.45;cursor:default}.link-btn{background:none;border:0;padding:0;color:#8B6F45;text-decoration:underline;text-underline-offset:3px;font:inherit;cursor:pointer}
+@media print{.link-row,.attachment-field .upload-label,.attachment-field>.field-note,.file-remove,.share-plan{display:none!important}}
 </style>
 </head><body class="client-page">
 <header class="topbar"><div class="container topbar-inner">
@@ -57,7 +59,7 @@ window.ANTARIKSH_SCHEMA = (() => {
   const steps = [
     {id:'about',en:'Let’s get acquainted',gu:'તમારા વિશે થોડું જાણીએ',hint:'Just the essentials to begin a conversation.',fields:[
       q('name','Your name','તમારું નામ','text',[],{required:true,placeholder:'Full name',autocomplete:'name'}),
-      q('phone','WhatsApp mobile number','WhatsApp મોબાઇલ નંબર','tel',[],{required:true,placeholder:'10-digit mobile number',autocomplete:'tel'}),
+      q('phone','WhatsApp mobile number','WhatsApp મોબાઇલ નંબર','tel',[],{required:true,placeholder:'e.g. 98765 43210',autocomplete:'tel',maxlength:20,note:'Indian mobile: 10 digits (+91 optional). Outside India: start with + and your country code. · 10 અંકનો મોબાઇલ નંબર, અથવા + અને દેશનો કોડ.'}),
       q('email','Email address','ઈમેલ એડ્રેસ','email',[],{placeholder:'Optional',autocomplete:'email'}),
       q('source','How did you hear about us?','અમારા વિશે ક્યાંથી જાણ્યું?','single',['Friend / family','Existing client','Instagram','Google / website','Builder / developer','Other']),
       q('decisionMakers','Who will be involved in design decisions?','ડિઝાઇનના નિર્ણયમાં કોણ જોડાશે?','multi',['Me','Spouse / family','Business partner','Parents','Other'])
@@ -204,17 +206,365 @@ window.ANTARIKSH_SCHEMA = (() => {
 const S=window.ANTARIKSH_SCHEMA;
 const KEY='antariksh-v2-client-draft';
 const PHONE='917621003444';
+const PHONE_DISPLAY='+91 76210 03444';
 const stages=[{en:'Welcome',gu:'શરૂઆત'},{en:'About',gu:'પરિચય'},{en:'Project',gu:'પ્રોજેક્ટ'},{en:'Vision',gu:'પસંદગી'},{en:'Plan',gu:'આયોજન'},{en:'Details',gu:'વિગતો'},{en:'Review',gu:'તપાસ'}];
-const st={stage:0,lang:'en',answers:{},refs:[],fileObjects:[],completed:false};
+const st={stage:0,lang:'en',answers:{},files:[],fileNotes:[],filesPersist:true,out:null,completed:false};
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=v=>Array.isArray(v)?v.join(' · '):String(v??'').trim();
 const answered=v=>Array.isArray(v)?v.length>0:String(v??'').trim().length>0;
 const visible=f=>!f.whenServices||f.whenServices.includes(st.answers.service);
-function load(){try{const v=JSON.parse(localStorage.getItem(KEY)||'{}');if(v&&typeof v==='object'){st.answers=v.answers&&typeof v.answers==='object'?v.answers:{};st.stage=Math.max(0,Math.min(6,Number(v.stage)||0));st.refs=Array.isArray(v.refs)?v.refs:[];st.lang=v.lang==='gu'?'gu':'en';}}catch(e){console.warn('Local draft unavailable');}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify({stage:st.stage,lang:st.lang,answers:st.answers,refs:st.refs,savedAt:new Date().toISOString()}));$('savedIndicator').textContent='Saved on this device · આ ડિવાઇસમાં સેવ';}catch(e){$('savedIndicator').textContent='Draft not saved';}}
-function target(){return window.matchMedia('(max-width:760px)').matches?0:0;}
-function go(n){st.stage=Math.min(6,Math.max(0,n));save();render();window.scrollTo({top:target(),behavior:'instant'});}
+
+/* ---------- WhatsApp number ----------
+   Accepts 98765 43210, 098765 43210, 91 98765 43210, +91-98765-43210, 0091 98765 43210
+   and any number written with + and a country code (clients outside India). */
+function phoneInfo(raw){
+  const s=String(raw??'').trim();
+  if(!s)return {ok:false,empty:true};
+  const indian=n=>{if(n.length===11&&n[0]==='0')n=n.slice(1);return /^[6-9]\d{9}$/.test(n)?{ok:true,e164:'+91'+n,display:'+91 '+n.slice(0,5)+' '+n.slice(5)}:{ok:false};};
+  let d=s.replace(/\D/g,'');
+  if(/^(\+|00)/.test(s)){
+    if(s.startsWith('00'))d=d.slice(2);
+    if(d.startsWith('91'))return indian(d.slice(2));
+    return d.length>=8&&d.length<=15&&d[0]!=='0'?{ok:true,e164:'+'+d,display:'+'+d}:{ok:false};
+  }
+  if(d.length===12&&d.startsWith('91'))d=d.slice(2);
+  else if(d.length===13&&d.startsWith('091'))d=d.slice(3);
+  return indian(d);
+}
+function phoneHint(){const p=phoneInfo(st.answers.phone);return p.ok?'✓ We will message you on '+p.display:'';}
+
+/* ---------- Reference files ---------- */
+// Chrome lets a web page hand only these types to another app (WhatsApp); everything else travels inside the PDF.
+const SHARE_TYPES={jpg:'image/jpeg',jpeg:'image/jpeg',jfif:'image/jpeg',pjpeg:'image/jpeg',pjp:'image/jpeg',png:'image/png',gif:'image/gif',webp:'image/webp',avif:'image/avif',bmp:'image/bmp',tif:'image/tiff',tiff:'image/tiff',pdf:'application/pdf',txt:'text/plain',csv:'text/csv',mp4:'video/mp4',webm:'video/webm',mpeg:'video/mpeg',mp3:'audio/mpeg',m4a:'audio/x-m4a',wav:'audio/wav'};
+const OTHER_TYPES={dwg:'image/vnd.dwg',dxf:'image/vnd.dxf',dwf:'model/vnd.dwf',heic:'image/heic',heif:'image/heif',doc:'application/msword',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',xls:'application/vnd.ms-excel',xlsx:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',ppt:'application/vnd.ms-powerpoint',pptx:'application/vnd.openxmlformats-officedocument.presentationml.presentation',zip:'application/zip'};
+const IMAGE_EXT=new Set(['jpg','jpeg','jfif','pjpeg','pjp','png','gif','webp','avif','bmp','heic','heif']);
+const KIND={dwg:'AutoCAD drawing',dxf:'CAD drawing (DXF)',dwf:'CAD drawing (DWF)',skp:'SketchUp model',rvt:'Revit model',rfa:'Revit family',ifc:'BIM model (IFC)','3dm':'Rhino model',pdf:'PDF',doc:'Word document',docx:'Word document',xls:'Excel sheet',xlsx:'Excel sheet',ppt:'PowerPoint',pptx:'PowerPoint',zip:'ZIP archive',txt:'Text',csv:'CSV sheet',mp4:'Video',webm:'Video',mpeg:'Video',mp3:'Audio',m4a:'Audio',wav:'Audio'};
+const ACCEPT='image/*,.pdf,.dwg,.dxf,.dwf,.skp,.rvt,.rfa,.ifc,.3dm,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.zip';
+const LIM={count:20,separate:9,file:25*1024*1024,total:40*1024*1024}; // Chrome refuses a share of more than 10 files: PDF + 9 separate files, any extra files ride inside the PDF
+const ext=n=>{const m=/\.([a-z0-9]+)$/i.exec(n||'');return m?m[1].toLowerCase():'';};
+const isImage=r=>IMAGE_EXT.has(ext(r.name))||/^image\/(?!vnd)/.test(r.type||'');
+const kindOf=r=>isImage(r)?'Image':KIND[ext(r.name)]||((ext(r.name)||'unknown').toUpperCase()+' file');
+const mimeOf=r=>SHARE_TYPES[ext(r.name)]||OTHER_TYPES[ext(r.name)]||r.type||'application/octet-stream';
+const sizeText=b=>b<1024?b+' B':b<1048576?Math.max(1,Math.round(b/1024))+' KB':(b/1048576).toFixed(b<10485760?1:0).replace(/\.0$/,'')+' MB';
+const totalBytes=()=>st.files.reduce((a,r)=>a+r.size,0);
+const shareFileFor=r=>new File([r.blob],r.name,{type:SHARE_TYPES[ext(r.name)]||r.type||'application/octet-stream',lastModified:r.lastModified});
+const canShareSafe=files=>{try{return navigator.canShare({files});}catch(e){return false;}};
+const CAN_SHARE_FILES=(()=>{try{return typeof navigator.share==='function'&&typeof navigator.canShare==='function'&&navigator.canShare({files:[new File(['%PDF-1.4'],'brief.pdf',{type:'application/pdf'})]});}catch(e){return false;}})();
+const thumbURLs=new Map();
+function thumbURL(r){if(!thumbURLs.has(r.id))thumbURLs.set(r.id,URL.createObjectURL(r.blob));return thumbURLs.get(r.id);}
+
+// Files are kept in IndexedDB so they survive a reload, like the rest of the draft.
+const IDB={db:null,
+  open(){if(this.db)return Promise.resolve(this.db);return new Promise((res,rej)=>{try{const q=indexedDB.open('antariksh-v2-files',1);q.onupgradeneeded=()=>q.result.createObjectStore('files',{keyPath:'id'});q.onsuccess=()=>{this.db=q.result;res(this.db);};q.onerror=()=>rej(q.error);q.onblocked=()=>rej(new Error('IndexedDB blocked'));}catch(e){rej(e);}});},
+  run(mode,fn){return this.open().then(db=>new Promise((res,rej)=>{const t=db.transaction('files',mode);const q=fn(t.objectStore('files'));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error||new Error('IndexedDB aborted'));}));},
+  all(){return this.run('readonly',s=>s.getAll());},
+  put(rec){return this.run('readwrite',s=>s.put(rec));},
+  del(id){return this.run('readwrite',s=>s.delete(id));}
+};
+let filesLoaded=Promise.resolve();
+async function loadFiles(){
+  try{const recs=await IDB.all();st.files=(recs||[]).sort((x,y)=>(x.added||0)-(y.added||0)).map(r=>({id:r.id,name:r.name,type:r.type||'',size:r.size,lastModified:r.lastModified,added:r.added,blob:new Blob([r.data],{type:r.type||''})}));}
+  catch(e){st.filesPersist=false;console.warn('Reference files cannot be kept in this browser',e);}
+}
+function addFiles(list){
+  const notes=[],fresh=[];
+  for(const f of list){
+    if(st.files.some(r=>r.name===f.name&&r.size===f.size&&r.lastModified===f.lastModified)){notes.push(`“${f.name}” is already added.`);continue;}
+    if(!f.size){notes.push(`“${f.name}” is empty and was skipped.`);continue;}
+    if(st.files.length>=LIM.count){notes.push(`“${f.name}” not added: up to ${LIM.count} files can be sent with one brief.`);continue;}
+    if(f.size>LIM.file){notes.push(`“${f.name}” is ${sizeText(f.size)}. Files over ${sizeText(LIM.file)} must be sent directly in the WhatsApp chat.`);continue;}
+    if(totalBytes()+f.size>LIM.total){notes.push(`“${f.name}” not added: all files together must stay under ${sizeText(LIM.total)}.`);continue;}
+    const rec={id:'f'+Date.now().toString(36)+Math.random().toString(36).slice(2,8),name:f.name,type:f.type||'',size:f.size,lastModified:f.lastModified||Date.now(),added:Date.now()+fresh.length,blob:f};
+    st.files.push(rec);fresh.push(rec);
+  }
+  st.fileNotes=notes;refreshFilesUI();
+  if(!st.filesPersist||!fresh.length)return;
+  fresh.reduce((p,r)=>p.then(async()=>{if(!st.files.includes(r))return;const data=await r.blob.arrayBuffer();await IDB.put({id:r.id,name:r.name,type:r.type,size:r.size,lastModified:r.lastModified,added:r.added,data});if(!st.files.includes(r))await IDB.del(r.id);}),Promise.resolve())
+    .catch(e=>{st.filesPersist=false;console.warn('Could not keep files',e);refreshFileLists();});
+}
+function removeFile(id){
+  const i=st.files.findIndex(r=>r.id===id);if(i<0)return;
+  st.files.splice(i,1);const u=thumbURLs.get(id);if(u){URL.revokeObjectURL(u);thumbURLs.delete(id);}
+  st.fileNotes=[];refreshFilesUI();IDB.del(id).catch(()=>{});
+}
+function filesListHTML(){
+  const notes=st.fileNotes.length?`<div class="file-warn">${st.fileNotes.map(esc).join('<br>')}</div>`:'';
+  if(!st.files.length)return `<p class="upload-files">No files added yet. · હજી કોઈ ફાઈલ ઉમેરી નથી.</p>${notes}`;
+  return `<ul class="file-list">${st.files.map((r,i)=>`<li class="file-item"><span class="file-thumb" aria-hidden="true"><span>${esc(ext(r.name).toUpperCase().slice(0,4)||'FILE')}</span>${isImage(r)?`<img src="${thumbURL(r)}" alt="" onerror="this.remove()">`:''}</span><span class="file-meta"><strong>${i+1}. ${esc(r.name)}</strong><small>${esc(kindOf(r))} · ${sizeText(r.size)}</small></span><button type="button" class="file-remove" data-remove-file="${esc(r.id)}" aria-label="Remove ${esc(r.name)}">Remove</button></li>`).join('')}</ul><p class="upload-files">${st.files.length} of ${LIM.count} files · ${sizeText(totalBytes())} of ${sizeText(LIM.total)}${st.filesPersist?' · kept on this device until you share':' · this browser cannot keep files, so they are lost if you close the page'}</p>${notes}`;
+}
+function uploaderHTML(){return `<div class="attachment-field"><label class="upload-label">＋ Add photos, site plans or drawings<input type="file" class="js-file-input" accept="${ACCEPT}" multiple hidden></label><p class="field-note">Photos, PDF, AutoCAD (DWG / DXF), SketchUp, Revit, Word, Excel… Up to ${LIM.count} files, ${sizeText(LIM.file)} each, ${sizeText(LIM.total)} in total. · ફોટો, પ્લાન કે ડ્રોઇંગ ઉમેરો.</p><div class="js-files">${filesListHTML()}</div></div>`;}
+function refreshFileLists(){document.querySelectorAll('.js-files').forEach(el=>{el.innerHTML=filesListHTML();});}
+function refreshFilesUI(){refreshFileLists();if(st.stage===6)prepareOutputs();}
+
+/* ---------- Brief content (shared by the review, the PDF and WhatsApp text) ---------- */
+function roomCount(){const n=parseInt(st.answers.intBedrooms,10);return Number.isFinite(n)?Math.min(5,Math.max(0,n)):0;}
+function dynamicRoomFields(){return st.answers.service==='Residential Interior'?Array.from({length:roomCount()},(_,i)=>S.roomFields(i+1)).flat():[];}
+function valueOf(f){const v=st.answers[f.id];if(f.id==='phone'){const p=phoneInfo(v);if(p.ok)return p.display;}return fmt(v);}
+function briefSections(){
+  const rows=fields=>fields.filter(f=>visible(f)&&answered(st.answers[f.id])).map(f=>[f.en,valueOf(f)]);
+  const out=S.steps.map(s=>({title:s.en,gu:s.gu,rows:rows(s.fields)}));
+  (S.detailed[st.answers.service]||[]).forEach(g=>out.push({title:g.title,gu:g.gu,rows:rows(g.fields)}));
+  if(st.answers.service==='Residential Interior')for(let i=0;i<roomCount();i++)out.push({title:'Bedroom '+(i+1),gu:'બેડરૂમ '+(i+1),rows:rows(S.roomFields(i+1))});
+  return out.filter(s=>s.rows.length);
+}
+function buildText(){
+  const a=st.answers,p=phoneInfo(a.phone);
+  const lines=['*ANTARIKSH DESIGN STUDIO*','Client Design Brief','',`Name: ${a.name||''}`,`WhatsApp: ${p.ok?p.display:(a.phone||'')}`,''];
+  briefSections().forEach(s=>{lines.push('*'+s.title.toUpperCase()+'*');s.rows.forEach(([l,v])=>lines.push(`${l}: ${v}`));lines.push('');});
+  if(st.files.length){lines.push(`*REFERENCE FILES (${st.files.length})*`);st.files.forEach((r,i)=>lines.push(`${i+1}. ${r.name} – ${kindOf(r)}, ${sizeText(r.size)}`));}
+  return lines.join('\n').trim();
+}
+function shortText(plan){
+  const a=st.answers,p=phoneInfo(a.phone),n=plan.separate.length,m=plan.inside.length;
+  return [`Antariksh Design Studio – design brief from ${a.name||'a client'}`,p.ok?'WhatsApp: '+p.display:'',[S.SERVICE_LABELS[a.service]||a.service,a.location].filter(Boolean).join(' · '),
+    `Attached: brief PDF${n?` + ${n} reference file${n>1?'s':''}`:''}${m?` (${m} more file${m>1?'s':''} inside the PDF)`:''}.`].filter(Boolean).join('\n');
+}
+function safeName(){return (st.answers.name||'Client').replace(/[^a-z0-9\-\s]/gi,'').trim().replace(/\s+/g,'-')||'Client';}
+function downloadBlob(blob,name){const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);}
+
+/* ---------- PDF ----------
+   Pages are drawn on a canvas by the browser (so Gujarati text renders correctly) and placed in a PDF with pdf-lib.
+   Files WhatsApp cannot take from a browser (DWG, DXF, SketchUp, Word…) are embedded in the PDF as attachments. */
+let pdfLibP=null;
+function loadPdfLib(){
+  if(window.PDFLib)return Promise.resolve(window.PDFLib);
+  if(!pdfLibP)pdfLibP=new Promise((res,rej)=>{const s=document.createElement('script');s.src='js/pdf-lib.min.js';s.onload=()=>window.PDFLib?res(window.PDFLib):rej(new Error('PDF library did not load'));s.onerror=()=>{pdfLibP=null;rej(new Error('PDF library could not be downloaded'));};document.head.appendChild(s);});
+  return pdfLibP;
+}
+function fontsReady(){
+  if(!document.fonts||!document.fonts.load)return Promise.resolve();
+  const want=['400 10px Barlow','500 10px Barlow','600 10px Barlow','600 20px "Barlow Semi Condensed"','400 10px "Hind Vadodara"'];
+  return Promise.race([Promise.all(want.map(f=>document.fonts.load(f,'Aa ગુજરાતી').catch(()=>{}))),new Promise(r=>setTimeout(r,3000))]);
+}
+function loadImage(blob){return new Promise((res,rej)=>{const u=URL.createObjectURL(blob);const im=new Image();im.onload=()=>res({im,done:()=>URL.revokeObjectURL(u)});im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('decode'));};im.src=u;});}
+function wrapText(ctx,txt,maxW){
+  const out=[];
+  String(txt??'').split(/\r?\n/).forEach(par=>{
+    let line='';
+    for(let w of par.split(/ +/)){
+      const test=line?line+' '+w:w;
+      if(ctx.measureText(test).width<=maxW){line=test;continue;}
+      if(line)out.push(line);
+      let chars=Array.from(w);
+      while(chars.length>1&&ctx.measureText(chars.join('')).width>maxW){let i=chars.length-1;while(i>1&&ctx.measureText(chars.slice(0,i).join('')).width>maxW)i--;out.push(chars.slice(0,i).join(''));chars=chars.slice(i);}
+      line=chars.join('');
+    }
+    out.push(line);
+  });
+  return out;
+}
+async function buildPdf(PDFLib,plan,isCurrent){
+  await fontsReady();
+  const PW=595.28,PH=841.89,PM=46,K=2.2,BOTTOM=PH-60;
+  const INK='#252723',SOFT='#575B54',MUTED='#7B7F76',GOLD='#91734A',GU='"Hind Vadodara","Noto Sans Gujarati","Gujarati Sangam MN","Shruti",sans-serif';
+  const BODY='Barlow,'+GU,DISP='"Barlow Semi Condensed",Barlow,'+GU;
+  const a=st.answers,ph=phoneInfo(a.phone),who=String(a.name||'').trim()||'Client';
+  const now=new Date(),dateStr=now.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  const doc=await PDFLib.PDFDocument.create();
+  doc.setTitle('Design brief – '+who);doc.setAuthor(who);doc.setSubject('Client design brief for Antariksh Design Studio');doc.setCreator('Antariksh client brief form');doc.setCreationDate(now);
+  let cv,ctx,y=0,pageNo=0;
+  const font=(w,size,fam=BODY)=>{ctx.font=`${w} ${size}px ${fam}`;};
+  const put=(t,x,yy,color=INK)=>{ctx.fillStyle=color;ctx.fillText(t,x,yy);};
+  const rule=(yy,color='#E2E0D8',w=.6)=>{ctx.strokeStyle=color;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(PM,yy);ctx.lineTo(PW-PM,yy);ctx.stroke();};
+  const spaced=(t,x,yy,sp,color)=>{ctx.fillStyle=color;let cx=x;for(const ch of t){ctx.fillText(ch,cx,yy);cx+=ctx.measureText(ch).width+sp;}return cx-x-sp;};
+  const spacedW=(t,sp)=>{let w=0;for(const ch of t)w+=ctx.measureText(ch).width+sp;return w-sp;};
+  const newPage=()=>{
+    cv=document.createElement('canvas');cv.width=Math.round(PW*K);cv.height=Math.round(PH*K);
+    ctx=cv.getContext('2d');ctx.setTransform(K,0,0,K,0,0);ctx.fillStyle='#fff';ctx.fillRect(0,0,PW,PH);ctx.textBaseline='alphabetic';
+    pageNo++;y=PM;
+    if(pageNo>1){font(600,6.8);spaced('ANTARIKSH DESIGN STUDIO',PM,40,1.5,GOLD);font(400,8);ctx.textAlign='right';put('Design brief · '+who,PW-PM,40,MUTED);ctx.textAlign='left';rule(48);y=64;}
+  };
+  const flush=async()=>{
+    const blob=await new Promise((res,rej)=>cv.toBlob(b=>b?res(b):rej(new Error('Page image could not be made')),'image/jpeg',.88));
+    if(!isCurrent())throw new Error('stale');
+    const img=await doc.embedJpg(new Uint8Array(await blob.arrayBuffer()));
+    doc.addPage([PW,PH]).drawImage(img,{x:0,y:0,width:PW,height:PH});
+    cv.width=cv.height=0;
+  };
+  const need=async h=>{if(y+h>BOTTOM){await flush();newPage();}};
+  const LW=150,VX=PM+LW+16,VW=PW-PM-VX;
+  const section=async(name,gu)=>{await need(70);y+=18;font(600,7.6);const w=spaced(name.toUpperCase(),PM,y,1.3,GOLD);if(gu){font(400,9,GU);put(gu,PM+w+10,y,'#8C8B84');}y+=7;rule(y,'#D6D2C6',.7);};
+  const row=async(label,value,valueColor=INK)=>{
+    const LH=13.4,LLH=11.2;
+    font(500,8.6);const ll=wrapText(ctx,label,LW);font(400,10);const vl=wrapText(ctx,value,VW);
+    await need(Math.min(Math.max(ll.length*LLH,vl.length*LH)+14,90));
+    const top=y+16;font(500,8.6);ll.forEach((l,i)=>put(l,PM,top+i*LLH,MUTED));
+    let yy=top,broke=false;
+    for(const l of vl){if(yy>BOTTOM){await flush();newPage();yy=y+14;broke=true;}font(400,10);put(l,VX,yy,valueColor);yy+=LH;}
+    y=Math.max(yy-LH,broke?0:top+(ll.length-1)*LLH)+9;rule(y,'#EFEDE8',.5);
+  };
+  const para=async(t,size,color)=>{font(400,size);for(const l of wrapText(ctx,t,PW-2*PM)){await need(size*1.6);font(400,size);put(l,PM,y+size*1.35,color);y+=size*1.55;}};
+
+  // Cover header
+  newPage();
+  font(600,17,DISP);spaced('ANTARIKSH',PM,62,3.2,INK);font(500,5.6);spaced('DESIGN STUDIO',PM+1,74,2.9,INK);
+  font(600,7.2);const ey='CLIENT DESIGN BRIEF';spaced(ey,PW-PM-spacedW(ey,1.6),60,1.6,GOLD);
+  font(400,8.5);ctx.textAlign='right';put(dateStr,PW-PM,74,MUTED);ctx.textAlign='left';
+  rule(90,'#B98A43',.8);
+  y=126;font(600,25,DISP);for(const l of wrapText(ctx,who,PW-2*PM)){put(l,PM,y);y+=29;}
+  const sub=[S.SERVICE_LABELS[a.service]||a.service,a.location].filter(Boolean).join(' · ');
+  if(sub){font(400,11.5);for(const l of wrapText(ctx,sub,PW-2*PM)){put(l,PM,y-6,SOFT);y+=16;}}
+  const contact=[ph.ok?'WhatsApp '+ph.display:(a.phone?'WhatsApp '+a.phone:''),a.email].filter(Boolean).join('    ·    ');
+  if(contact){font(400,9.5);for(const l of wrapText(ctx,contact,PW-2*PM)){put(l,PM,y-2,MUTED);y+=13;}}
+
+  for(const s of briefSections()){await section(s.title,s.gu);for(const [l,v] of s.rows)await row(l,v);}
+
+  if(st.files.length){
+    await section('Reference files','ફોટો / પ્લાન / રેફરન્સ');
+    for(const [i,r] of st.files.entries()){
+      const inside=plan.inside.includes(r);
+      await row(`File ${i+1} · ${kindOf(r)}`,`${r.name}\n${sizeText(r.size)} · ${inside?'attached inside this PDF':plan.label?plan.label(r):'sent with this PDF as a separate WhatsApp file'}`);
+    }
+    if(plan.inside.length){y+=6;await para(`${plan.inside.length===1?'One file is':plan.inside.length+' files are'} attached inside this PDF. Open the PDF in Adobe Acrobat Reader (computer or phone) and use the Attachments panel (paperclip icon) to save ${plan.inside.length===1?'it':'them'}.`,8.8,'#635C50');}
+    const imgs=st.files.filter(isImage);
+    if(imgs.length){
+      const CW=(PW-2*PM-16)/2,MH=210;
+      await need(MH+110); // keep the heading with the first row of photos
+      await section('Photo references','ફોટો રેફરન્સ');
+      for(let i=0;i<imgs.length;i+=2){
+        const pair=await Promise.all(imgs.slice(i,i+2).map(r=>loadImage(r.blob).catch(()=>null)));
+        const dims=pair.map(p=>{if(!p)return {w:CW,h:56};const k=Math.min(CW/p.im.naturalWidth,MH/p.im.naturalHeight);return {w:p.im.naturalWidth*k,h:p.im.naturalHeight*k};});
+        const rowH=Math.max(...dims.map(d=>d.h))+24;
+        await need(rowH+12);y+=12;
+        pair.forEach((p,j)=>{
+          const r=imgs[i+j],x0=PM+j*(CW+16),d=dims[j];
+          if(p){ctx.drawImage(p.im,x0,y,d.w,d.h);ctx.strokeStyle='#E2E0D8';ctx.lineWidth=.5;ctx.strokeRect(x0,y,d.w,d.h);p.done();}
+          else{ctx.fillStyle='#F6F4EF';ctx.fillRect(x0,y,CW,56);font(400,8.5);put('Preview not available – the original file is included',x0+10,y+32,MUTED);}
+          font(400,8);put(wrapText(ctx,`${st.files.indexOf(r)+1}. ${r.name}`,CW)[0],x0,y+d.h+13,MUTED);
+        });
+        y+=rowH;
+      }
+    }
+  }
+  await need(46);y+=20;rule(y,'#B98A43',.6);y+=4;
+  await para(`Prepared by the client with the Antariksh Design Studio brief form on ${dateStr}. Antariksh Design Studio · Surat, Gujarat · WhatsApp ${PHONE_DISPLAY}`,8,MUTED);
+  await flush();
+
+  const hel=await doc.embedFont(PDFLib.StandardFonts.Helvetica),grey=PDFLib.rgb(.53,.55,.51),pages=doc.getPages();
+  pages.forEach((p,i)=>{const t=`Page ${i+1} of ${pages.length}`;p.drawText(t,{x:PW-PM-hel.widthOfTextAtSize(t,7.5),y:26,size:7.5,font:hel,color:grey});p.drawText('Antariksh Design Studio - Client design brief',{x:PM,y:26,size:7.5,font:hel,color:grey});});
+  const used=new Set();
+  for(const r of plan.inside){
+    let n=r.name,k=2;while(used.has(n.toLowerCase()))n=r.name.replace(/(\.[^.]*)?$/,` (${k++})$1`);used.add(n.toLowerCase());
+    const when=new Date(r.lastModified||Date.now());
+    await doc.attach(new Uint8Array(await r.blob.arrayBuffer()),n,{mimeType:mimeOf(r),description:`${kindOf(r)} – reference file from ${who}`,creationDate:when,modificationDate:when});
+  }
+  if(plan.inside.length)doc.catalog.set(PDFLib.PDFName.of('PageMode'),PDFLib.PDFName.of('UseAttachments'));
+  return doc.save();
+}
+function planShare(){
+  const separate=[],inside=[];
+  for(const r of st.files){const ok=CAN_SHARE_FILES&&!!SHARE_TYPES[ext(r.name)]&&separate.length<LIM.separate&&canShareSafe([shareFileFor(r)]);(ok?separate:inside).push(r);}
+  return {separate,inside};
+}
+// Safari (iPhone) drops shared files when a text caption is added, so the caption is sent only from Chromium browsers.
+const IS_CHROMIUM=!!navigator.userAgentData;
+const zipPath=(r,i)=>'files/'+String(i+1).padStart(2,'0')+'-'+r.name.replace(/[\\/:*?"<>|\u0000-\u001f]+/g,'_');
+function briefJson(paths){return {format:'antariksh-client-brief',version:2,createdAt:new Date().toISOString(),service:st.answers.service||'',whatsapp:phoneInfo(st.answers.phone).e164||st.answers.phone||'',answers:st.answers,references:st.files.map((r,i)=>({name:r.name,size:r.size,type:mimeOf(r),path:paths[i]})),notice:'Original files are in the files folder next to this JSON. Import this JSON into team.html locally.'};}
+
+/* ---------- ZIP ----------
+   Stored without compression: photos, PDFs and CAD files are already compressed. UTF-8 names (Gujarati file names stay readable). */
+const CRC_TABLE=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC_TABLE[(c^b[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+async function makeZip(entries,isCurrent){
+  const enc=new TextEncoder(),parts=[],central=[];let offset=0;
+  for(const e of entries){
+    const data=new Uint8Array(await e.blob.arrayBuffer());if(!isCurrent())throw new Error('stale');
+    const name=enc.encode(e.name),crc=crc32(data),size=data.length,d=e.date||new Date();
+    const time=(d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1),date=((Math.max(1980,d.getFullYear())-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate();
+    const h=new DataView(new ArrayBuffer(30));
+    h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);h.setUint16(10,time,true);h.setUint16(12,date,true);
+    h.setUint32(14,crc,true);h.setUint32(18,size,true);h.setUint32(22,size,true);h.setUint16(26,name.length,true);h.setUint16(28,0,true);
+    parts.push(h.buffer,name,e.blob);
+    const c=new DataView(new ArrayBuffer(46));
+    c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(10,0,true);c.setUint16(12,time,true);c.setUint16(14,date,true);
+    c.setUint32(16,crc,true);c.setUint32(20,size,true);c.setUint32(24,size,true);c.setUint16(28,name.length,true);c.setUint32(42,offset,true);
+    central.push(c.buffer,name);
+    offset+=30+name.length+size;
+  }
+  const cdSize=central.reduce((a,p)=>a+p.byteLength,0),end=new DataView(new ArrayBuffer(22));
+  end.setUint32(0,0x06054b50,true);end.setUint16(8,entries.length,true);end.setUint16(10,entries.length,true);end.setUint32(12,cdSize,true);end.setUint32(16,offset,true);
+  return new Blob([...parts,...central,end.buffer],{type:'application/zip'});
+}
+
+/* ---------- Last-page outputs: ZIP (main) and quick-share PDF ---------- */
+let outToken=0;
+async function prepareOutputs(){
+  const token=++outToken,isCurrent=()=>token===outToken&&st.stage===6;
+  setShareState();
+  await filesLoaded;if(!isCurrent())return;
+  const key=JSON.stringify(st.answers)+'|'+st.files.map(r=>r.id).join(',');
+  if(st.out&&st.out.key===key&&st.out.zip&&st.out.pdf){setShareState();return;}
+  const out=st.out={key,zip:null,pdf:null,error:null};setShareState();
+  try{
+    const lib=await loadPdfLib();if(!isCurrent())return;
+    const base='Antariksh-Brief-'+safeName(),files=st.files.slice(),paths=files.map(zipPath),now=new Date();
+    // 1. ZIP: brief PDF + JSON + every uploaded file exactly as uploaded
+    const zipPdf=await buildPdf(lib,{separate:files,inside:[],label:r=>'in the ZIP: '+paths[files.indexOf(r)]},isCurrent);if(!isCurrent())return;
+    const zip=await makeZip([
+      {name:`${base}/${base}.pdf`,blob:new Blob([zipPdf],{type:'application/pdf'}),date:now},
+      {name:`${base}/${base}.json`,blob:new Blob([JSON.stringify(briefJson(paths),null,2)],{type:'application/json'}),date:now},
+      ...files.map((r,i)=>({name:`${base}/${paths[i]}`,blob:r.blob,date:new Date(r.lastModified||now)}))],isCurrent);
+    if(!isCurrent())return;
+    out.zip={file:new File([zip],base+'.zip',{type:'application/zip'}),count:files.length};setShareState();
+    // 2. Quick share: PDF + photos/PDFs as separate files; other file types inside the PDF
+    let plan=planShare(),bytes=await buildPdf(lib,plan,isCurrent);if(!isCurrent())return;
+    let file=new File([bytes],base+'.pdf',{type:'application/pdf'}),shared=[file,...plan.separate.map(shareFileFor)];
+    if(CAN_SHARE_FILES&&plan.separate.length&&!canShareSafe(shared)){plan={separate:[],inside:files};bytes=await buildPdf(lib,plan,isCurrent);if(!isCurrent())return;file=new File([bytes],base+'.pdf',{type:'application/pdf'});shared=[file];}
+    out.pdf={file,files:shared,plan};setShareState();
+  }catch(e){if(!isCurrent())return;console.error(e);out.error=e;setShareState();}
+}
+function sharePlanHTML(){
+  const o=st.out||{},n=st.files.length,plan=o.pdf?o.pdf.plan:planShare();
+  let h=`<p><strong>Send ZIP on WhatsApp</strong> – one ZIP file with your brief as a PDF, the same answers as a data file (JSON)${n?` and all ${n} file${n>1?'s':''} exactly as you uploaded ${n>1?'them':'it'}`:''}. It downloads to this device and the Antariksh chat opens: tap the paperclip → Document, choose the ZIP and press Send.</p>`;
+  if(CAN_SHARE_FILES)h+=`<p><strong>Share PDF & photos</strong> – one tap: your share menu opens with the PDF${plan.separate.length?' and your photos / PDFs as separate files':''}.${plan.inside.length?` These travel inside the PDF instead: ${plan.inside.map(r=>esc(r.name)).join(', ')}.`:''}</p>`;
+  return h;
+}
+function setShareState(){
+  const z=$('zipBtn');if(!z)return;
+  const o=st.out||{},w=$('whatsappBtn'),n=$('shareStatus'),plan=$('sharePlan');
+  if(plan)plan.innerHTML=sharePlanHTML();
+  z.disabled=$('zipDlBtn').disabled=!o.zip;$('pdfBtn').disabled=!o.pdf;
+  z.textContent=o.zip||o.error?'Send ZIP on WhatsApp ↗':'Preparing your ZIP…';
+  if(w){w.disabled=!o.pdf;w.textContent=o.pdf||o.error?'Share PDF & photos ↗':'Preparing PDF…';}
+  n.classList.toggle('share-error',!!o.error);
+  n.textContent=o.error?`The ZIP could not be made on this device (${o.error.message||'unknown error'}). Use “Send as text message only” and attach your files in the WhatsApp chat.`
+    :o.zip?`Ready: ${o.zip.file.name} (${sizeText(o.zip.file.size)}). WhatsApp chat: Antariksh Design Studio, ${PHONE_DISPLAY}.`
+    :'Packing your brief and files into a ZIP. This takes a few seconds.';
+}
+function shareStatus(msg,isError){const n=$('shareStatus');if(n){n.textContent=msg;n.classList.toggle('share-error',!!isError);}}
+const SHARED_OK='Shared. Thank you – the studio will review your brief and get back to you.';
+function sendZip(){
+  const z=st.out&&st.out.zip;if(!z)return;
+  if(CAN_SHARE_FILES&&!IS_CHROMIUM&&canShareSafe([z.file])){ // iPhone / Safari: try the share menu directly
+    navigator.share({files:[z.file]}).then(()=>shareStatus(SHARED_OK))
+      .catch(e=>{if(e&&e.name==='AbortError')shareStatus('Sharing was cancelled. Tap Send ZIP on WhatsApp to try again.');else shareStatus(`This device did not allow sharing the ZIP. Tap “Download ZIP”, then attach it in the WhatsApp chat with ${PHONE_DISPLAY}.`,true);});
+    return;
+  }
+  downloadBlob(z.file,z.file.name);
+  const intro=`📎 I am attaching my design brief ZIP “${z.file.name}” – brief PDF, JSON data${z.count?` and ${z.count} uploaded file${z.count>1?'s':''}`:''}.\n\n`;
+  window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(intro+buildText()),'_blank','noopener,noreferrer');
+  shareStatus(`ZIP downloaded as “${z.file.name}”. In the WhatsApp chat tap the paperclip → Document, open Downloads, choose the ZIP and press Send.`);
+}
+function shareOnWhatsApp(){
+  const p=st.out&&st.out.pdf;if(!p)return;
+  if(!CAN_SHARE_FILES)return sendZip();
+  navigator.share(IS_CHROMIUM?{files:p.files,title:'Antariksh design brief',text:shortText(p.plan)}:{files:p.files})
+    .then(()=>shareStatus(SHARED_OK))
+    .catch(e=>{if(e&&e.name==='AbortError')shareStatus('Sharing was cancelled. Tap Share PDF & photos to try again.');else shareStatus(`This browser did not allow the share (${e&&e.name||'error'}). Use Send ZIP on WhatsApp instead.`,true);});
+}
+function shareTextOnly(){
+  const msg=buildText()+(st.files.length?'\n\n(Files are not included in a text message – I will attach them in this chat.)':'');
+  if(msg.length>5000&&!confirm('This brief is long. WhatsApp may cut it short. Send ZIP on WhatsApp keeps everything. Continue with text?'))return;
+  window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer');
+}
+
+/* ---------- Draft ---------- */
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY)||'{}');if(v&&typeof v==='object'){st.answers=v.answers&&typeof v.answers==='object'?v.answers:{};st.stage=Math.max(0,Math.min(6,Number(v.stage)||0));st.lang=v.lang==='gu'?'gu':'en';}}catch(e){console.warn('Local draft unavailable');}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({stage:st.stage,lang:st.lang,answers:st.answers,savedAt:new Date().toISOString()}));$('savedIndicator').textContent='Saved on this device · આ ડિવાઇસમાં સેવ';}catch(e){$('savedIndicator').textContent='Draft not saved';}}
+function go(n){st.stage=Math.min(6,Math.max(0,n));save();render();window.scrollTo({top:0,behavior:'instant'});}
+
+/* ---------- Screens ---------- */
 function stepper(){let html='';stages.forEach((s,i)=>{html+=`<button class="step-item ${i===st.stage?'active':i<st.stage?'done':''}" type="button" data-step="${i}" ${i===st.stage?'aria-current="step"':''}><span class="step-number">${i<st.stage?'✓':i||'•'}</span>${esc(st.lang==='gu'?s.gu:s.en)}</button>`;if(i!==stages.length-1)html+='<span class="step-sep" aria-hidden="true"></span>';});$('stepper').innerHTML=html;$('progressLine').style.width=(st.stage/6*100)+'%';}
 function title(en,gu){return st.lang==='gu'?`${esc(gu)}<span class="section-gu">${esc(en)}</span>`:`${esc(en)}<span class="section-gu" lang="gu">${esc(gu)}</span>`;}
 function fLabel(f){return st.lang==='gu'?`<span lang="gu">${esc(f.gu)}</span><span class="gu">${esc(f.en)}</span>`:`${esc(f.en)}<span class="gu" lang="gu">${esc(f.gu)}</span>`;}
@@ -231,34 +581,34 @@ function fieldHTML(f){if(!visible(f))return '';const v=st.answers[f.id],id='f-'+
   }else if(f.type==='textarea'){
     html+=`<textarea id="${id}" class="textarea" data-input="${esc(f.id)}" rows="3" placeholder="${esc(f.placeholder||'Optional / ઇચ્છા મુજબ')}">${esc(v||'')}</textarea>`;
   }else{
-    const ty=['tel','email','date','number'].includes(f.type)?f.type:'text';html+=`<input id="${id}" class="input" type="${ty}" value="${esc(v||'')}" data-input="${esc(f.id)}" ${f.autocomplete?'autocomplete="'+esc(f.autocomplete)+'"':''} ${f.inputmode?'inputmode="'+esc(f.inputmode)+'"':''} placeholder="${esc(f.placeholder||'Optional / ઇચ્છા મુજબ')}"/>`;
+    const ty=['tel','email','date','number'].includes(f.type)?f.type:'text';html+=`<input id="${id}" class="input" type="${ty}" value="${esc(v||'')}" data-input="${esc(f.id)}" ${f.autocomplete?'autocomplete="'+esc(f.autocomplete)+'"':''} ${f.inputmode?'inputmode="'+esc(f.inputmode)+'"':''} ${f.maxlength?'maxlength="'+Number(f.maxlength)+'"':''} placeholder="${esc(f.placeholder||'Optional / ઇચ્છા મુજબ')}"/>`;
+    if(f.id==='phone')html+=`<p class="field-note phone-ok" id="phoneHint" aria-live="polite">${esc(phoneHint())}</p>`;
   }return html+'</div>';
 }
 function fieldsBlock(fields){return '<div class="field-list">'+fields.map(fieldHTML).join('')+'</div>';}
-function welcome(){return `<div class="form-content welcome-panel"><span class="welcome-mark">YOUR PROJECT / YOUR STORY</span><div class="hero-number">01<span style="font-size:30px">/</span></div><h2>${title('Tell us about your space.','તમારી જગ્યા વિશે જણાવો.')}</h2><p>We would love to understand what you need before we begin designing. There are no wrong answers, and you can always discuss the details with our team.</p><p class="gu" lang="gu">ડિઝાઇન શરૂ થાય તે પહેલાં તમારી જરૂરિયાતો અને પસંદગી સમજીશું. જે જવાબ ખબર ન હોય તે છોડી શકો છો.</p><div class="welcome-list"><div class="welcome-item"><span class="num">01</span><span><strong>Easy introduction</strong><small>4 short steps · આશરે 5–7 મિનિટ</small></span></div><div class="welcome-item"><span class="num">02</span><span><strong>Questions adapt</strong><small>Based on your design service</small></span></div><div class="welcome-item"><span class="num">03</span><span><strong>More detail? Optional.</strong><small>Room-wise brief when ready</small></span></div><div class="welcome-item"><span class="num">04</span><span><strong>Review & share</strong><small>Send to our team on WhatsApp</small></span></div></div><div class="notice"><strong>A private first step.</strong> Your draft stays in this browser until you choose to export or share it. No automatic submission.</div></div>`;}
+function welcome(){return `<div class="form-content welcome-panel"><span class="welcome-mark">YOUR PROJECT / YOUR STORY</span><div class="hero-number">01<span style="font-size:30px">/</span></div><h2>${title('Tell us about your space.','તમારી જગ્યા વિશે જણાવો.')}</h2><p>We would love to understand what you need before we begin designing. There are no wrong answers, and you can always discuss the details with our team.</p><p class="gu" lang="gu">ડિઝાઇન શરૂ થાય તે પહેલાં તમારી જરૂરિયાતો અને પસંદગી સમજીશું. જે જવાબ ખબર ન હોય તે છોડી શકો છો.</p><div class="welcome-list"><div class="welcome-item"><span class="num">01</span><span><strong>Easy introduction</strong><small>4 short steps · આશરે 5–7 મિનિટ</small></span></div><div class="welcome-item"><span class="num">02</span><span><strong>Questions adapt</strong><small>Based on your design service</small></span></div><div class="welcome-item"><span class="num">03</span><span><strong>More detail? Optional.</strong><small>Room-wise brief when ready</small></span></div><div class="welcome-item"><span class="num">04</span><span><strong>Review & share</strong><small>One ZIP to our team on WhatsApp</small></span></div></div><div class="notice"><strong>A private first step.</strong> Your draft stays in this browser until you choose to export or share it. No automatic submission.</div></div>`;}
 function regularStep(n){const s=S.steps[n-1];return `<div class="form-content">${header('STEP 0'+n+' / 04',s.en,s.gu,s.hint,n===1?'1 minute':'2 minutes')}${fieldsBlock(s.fields)}</div>`;}
-function roomCount(){const n=parseInt(st.answers.intBedrooms,10);return Number.isFinite(n)?Math.min(5,Math.max(0,n)):0;}
-function dynamicRoomFields(){return st.answers.service==='Residential Interior'?Array.from({length:roomCount()},(_,i)=>S.roomFields(i+1)).flat():[];}
 function detailStep(){const service=st.answers.service,groups=S.detailed[service]||[];
   const h=`<div class="form-content">${header('OPTIONAL / STEP 05','A little more detail','વધુ વિગત આપવી હોય તો','This helps our designers prepare. Skip anything you are unsure of.','Optional · 5–15 min')}<p class="detail-lead"><strong>${esc(S.SERVICE_LABELS[service]||'Your project')}</strong> · These are more specific questions. You do not have to answer everything now; the team can complete the technical brief during your consultation.</p>`;
   const parts=groups.map(g=>{const room=g.title==='Room-by-room brief'&&service==='Residential Interior';let inner=room?(roomCount()?Array.from({length:roomCount()},(_,i)=>`<section class="room-panel"><h4>BEDROOM ${String(i+1).padStart(2,'0')} <span lang="gu">· બેડરૂમ ${i+1}</span></h4>${fieldsBlock(S.roomFields(i+1))}</section>`).join(''):'<p class="detail-lead">Select the number of bedrooms in the previous section to create individual room questionnaires. · પહેલા બેડરૂમની સંખ્યા પસંદ કરો.</p>'):'';return `<section class="detail-group"><h3 class="detail-title">${esc(g.title)} <small lang="gu">${esc(g.gu)}</small></h3>${inner}${fieldsBlock(g.fields)}</section>`;}).join('');
-  return h+parts+`<section class="detail-group"><h3 class="detail-title">Site plans & inspiration <small lang="gu">ફોટો / પ્લાન / રેફરન્સ</small></h3><div class="attachment-field"><label class="upload-label">＋ Choose files (images, PDF or drawings)<input type="file" id="fileUpload" accept="image/*,.pdf,.dwg,.dxf" multiple hidden></label><p class="field-note">You may also share the original files in WhatsApp. Files are not uploaded or backed up by this demo.</p><div class="upload-files" id="fileList">${fileListText()}</div></div></section></div>`;
+  return h+parts+`<section class="detail-group"><h3 class="detail-title">Site plans & inspiration <small lang="gu">ફોટો / પ્લાન / રેફરન્સ</small></h3>${uploaderHTML()}<p class="field-note" style="margin-top:10px">On the last step these files are packed into one ZIP with your brief, ready to send on WhatsApp.</p></section></div>`;
 }
-function fileListText(){if(!st.refs.length)return 'No files selected yet.';return st.refs.map(r=>esc(r.name)).join(' · ');}
 function sectionRows(fields){const rows=fields.filter(f=>visible(f)&&answered(st.answers[f.id]));if(!rows.length)return '<div class="review-none">Nothing specified yet · ચર્ચા દરમિયાન નક્કી કરીશું</div>';
-return `<dl class="review-dl">${rows.map(f=>`<div class="review-row"><dt>${esc(f.en)}</dt><dd>${esc(fmt(st.answers[f.id]))}</dd></div>`).join('')}</dl>`;}
+return `<dl class="review-dl">${rows.map(f=>`<div class="review-row"><dt>${esc(f.en)}</dt><dd>${esc(valueOf(f))}</dd></div>`).join('')}</dl>`;}
 function reviewCard(label,fields,stepNum){return `<div class="review-card"><div class="review-card-head"><span>${esc(label)}</span><button type="button" data-step="${stepNum}">Edit / ફેરફાર</button></div>${sectionRows(fields)}</div>`;}
 function review(){let html=`<div class="form-content review-content">${header('FINAL STEP / REVIEW','Your project, at a glance','તમારા પ્રોજેક્ટનો સારાંશ','Please review what you have shared. Add or change anything before sending.','Review & share')}`;
   S.steps.forEach((s,i)=>html+=reviewCard(s.en,s.fields,i+1));
   (S.detailed[st.answers.service]||[]).forEach(g=>html+=reviewCard(g.title,g.fields,5));for(let i=0;i<roomCount()&&st.answers.service==='Residential Interior';i++)html+=reviewCard('Bedroom '+(i+1),S.roomFields(i+1),5);
-  if(st.refs.length)html+=`<div class="review-card"><div class="review-card-head">Referenced files (names only)</div><div class="review-none">${fileListText()}</div></div>`;
-  html+=`<div class="detail-summary">✓ Your answers are ready for your first design consultation. You can still edit them.</div><div class="review-actions"><button type="button" class="btn btn-primary" id="whatsappBtn">Share via WhatsApp ↗</button><button type="button" class="btn btn-outline" id="printBtn">Save as PDF / Print</button><button type="button" class="btn btn-outline" id="jsonBtn">Export team JSON ↓</button></div><p class="action-help">WhatsApp opens with a pre-filled message; you must tap Send yourself. The PDF button uses your browser's print dialog (choose Save as PDF). Export team JSON transfers answers to the separate internal briefing prototype. Uploaded files must be sent separately.</p><p class="privacy-note">Prototype only. There is no database, secure login, automatic submission, file server or cross-device resume yet. Draft is saved only on this browser.</p></div>`;return html;
+  html+=`<div class="review-card"><div class="review-card-head"><span>Reference files · <span lang="gu">ફોટો / પ્લાન / રેફરન્સ</span></span></div><div class="review-files">${uploaderHTML()}</div></div>`;
+  html+=`<div class="detail-summary">✓ Your answers are ready for your first design consultation. You can still edit them.</div><div class="share-plan" id="sharePlan"></div><div class="review-actions"><button type="button" class="btn btn-primary" id="zipBtn" disabled>Preparing your ZIP…</button>${CAN_SHARE_FILES?'<button type="button" class="btn btn-outline" id="whatsappBtn" disabled>Preparing PDF…</button>':''}</div><p class="link-row"><button type="button" class="link-btn" id="zipDlBtn" disabled>Download ZIP</button><span aria-hidden="true">·</span><button type="button" class="link-btn" id="pdfBtn" disabled>Download PDF</button><span aria-hidden="true">·</span><button type="button" class="link-btn" id="textOnlyBtn">Send as text message only</button></p><p class="action-help" id="shareStatus" aria-live="polite"></p><p class="privacy-note">Prototype only. There is no database, login or automatic submission. Your answers and files stay in this browser until you send them.</p></div>`;return html;
 }
 function render(){stepper();$('app').innerHTML=st.stage===0?welcome():st.stage<=4?regularStep(st.stage):st.stage===5?detailStep():review();$('backBtn').style.visibility=st.stage===0?'hidden':'visible';$('nextBtn').style.display=st.stage===6?'none':'';
   $('nextBtn').innerHTML=st.stage===0?'Start the brief → <span lang="gu">શરૂ કરીએ</span>':st.stage===4?'More details → <span lang="gu">વધુ માહિતી</span>':st.stage===5?'Review answers → <span lang="gu">જવાબ તપાસો</span>':'Continue → <span lang="gu">આગળ</span>';
-  if($('skipDetails'))$('skipDetails').remove();if(st.stage===5){const b=document.createElement('button');b.className='btn btn-outline';b.id='skipDetails';b.textContent='Skip detailed questions';b.style.marginRight='auto';$('bottomNav').insertBefore(b,$('nextBtn'));}
-  const oldSkip=$('skipDetails');if(st.stage!==5&&oldSkip)oldSkip.remove();document.body.classList.toggle('gu-primary',st.lang==='gu');}
-function validate(){let needed=[];if(st.stage===1){if(!String(st.answers.name||'').trim())needed.push('Your name');if(String(st.answers.phone||'').replace(/\D/g,'').length!==10)needed.push('10-digit WhatsApp mobile number');if(st.answers.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.answers.email))needed.push('Valid email or leave blank');}if(st.stage===2){if(!st.answers.service)needed.push('Design service');if(!String(st.answers.location||'').trim())needed.push('Site location');}return needed;}
+  if($('skipDetails'))$('skipDetails').remove();if(st.stage===5){const b=document.createElement('button');b.className='btn btn-outline';b.id='skipDetails';b.type='button';b.textContent='Skip detailed questions';b.style.marginRight='auto';$('bottomNav').insertBefore(b,$('nextBtn'));}
+  document.body.classList.toggle('gu-primary',st.lang==='gu');
+  if(st.stage===6)prepareOutputs();else{outToken++;if(st.stage===5)loadPdfLib().catch(()=>{});}
+}
+function validate(){let needed=[];if(st.stage===1){if(!String(st.answers.name||'').trim())needed.push('Your name');if(!phoneInfo(st.answers.phone).ok)needed.push('WhatsApp number (10-digit mobile, or + and country code)');if(st.answers.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(st.answers.email))needed.push('Valid email or leave blank');}if(st.stage===2){if(!st.answers.service)needed.push('Design service');if(!String(st.answers.location||'').trim())needed.push('Site location');}return needed;}
 function next(){const issues=validate();if(issues.length){const old=$('validationError');if(old)old.remove();const node=document.createElement('div');node.id='validationError';node.className='step-alert';node.textContent='Please complete: '+issues.join(', ')+' · કૃપા કરીને જરૂરી વિગતો ભરો.';$('app').querySelector('.form-content').prepend(node);return;}go(st.stage+1);}
 function choices(e){const b=e.target.closest('[data-choice]');if(!b)return;const id=b.dataset.field,val=b.dataset.value,type=b.dataset.choice;const f=[...S.steps.flatMap(s=>s.fields),...Object.values(S.detailed).flatMap(gr=>gr.flatMap(g=>g.fields)),...dynamicRoomFields()].find(x=>x.id===id);
   if(type==='single')st.answers[id]=st.answers[id]===val?'':val;
@@ -266,19 +616,19 @@ function choices(e){const b=e.target.closest('[data-choice]');if(!b)return;const
   if(id==='service'||id==='intBedrooms'){// A service/bedroom-count switch changes visible questions but preserves prior draft answers.
     render();}else{const blocks=document.querySelectorAll(`[data-field="${CSS.escape(id)}"][data-choice]`);blocks.forEach(el=>{const on=type==='single'?st.answers[id]===el.dataset.value:(st.answers[id]||[]).includes(el.dataset.value);el.setAttribute('aria-pressed',String(on));});}
   save();}
-function buildText(){let lines=['*ANTARIKSH DESIGN STUDIO*','Client Design Brief','',`Name: ${st.answers.name||''}`,`WhatsApp: ${st.answers.phone||''}`,''];
- S.steps.forEach(s=>{lines.push('*'+s.en.toUpperCase()+'*');s.fields.filter(f=>visible(f)&&answered(st.answers[f.id])).forEach(f=>lines.push(`${f.en}: ${fmt(st.answers[f.id])}`));lines.push('');});
- const groups=S.detailed[st.answers.service]||[];groups.forEach(g=>{const fields=g.fields.filter(f=>answered(st.answers[f.id]));if(fields.length){lines.push('*'+g.title.toUpperCase()+'*');fields.forEach(f=>lines.push(`${f.en}: ${fmt(st.answers[f.id])}`));lines.push('');}});if(st.answers.service==='Residential Interior'){for(let i=0;i<roomCount();i++){const fields=S.roomFields(i+1).filter(f=>answered(st.answers[f.id]));if(fields.length){lines.push('*BEDROOM '+(i+1)+'*');fields.forEach(f=>lines.push(`${f.en}: ${fmt(st.answers[f.id])}`));lines.push('');}}}
- if(st.refs.length)lines.push('References (send separately): '+st.refs.map(x=>x.name).join(', '));return lines.join('\n');}
-function downloadJson(){const payload={format:'antariksh-client-brief',version:2,createdAt:new Date().toISOString(),service:st.answers.service||'',answers:st.answers,references:st.refs.map(({name,size,type})=>({name,size,type})),notice:'References are filenames only; files are not included. Import into team.html locally.'};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download='Antariksh-Brief-'+(st.answers.name||'Client').replace(/[^a-z0-9\-\s]/gi,'').trim().replace(/\s+/g,'-')+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
-function shareFiles(){if(!st.fileObjects.length)return;const fs=st.fileObjects;if(navigator.share&&navigator.canShare&&navigator.canShare({files:fs})){navigator.share({files:fs,title:'Antariksh design references'}).catch(()=>{});}else alert('Please send selected references as attachments in your WhatsApp conversation.');}
-function init(){load();render();$('nextBtn').addEventListener('click',next);$('backBtn').addEventListener('click',()=>go(st.stage-1));$('languageToggle').addEventListener('click',()=>{st.lang=st.lang==='gu'?'en':'gu';save();render();});
+function init(){load();filesLoaded=loadFiles().then(refreshFileLists);render();
+  $('nextBtn').addEventListener('click',next);$('backBtn').addEventListener('click',()=>go(st.stage-1));$('languageToggle').addEventListener('click',()=>{st.lang=st.lang==='gu'?'en':'gu';save();render();});
   $('stepper').addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(b){const n=Number(b.dataset.step);if(n<=st.stage)go(n);}});
-  $('app').addEventListener('click',e=>{if(e.target.closest('[data-choice]')){choices(e);return;}const b=e.target.closest('[data-step]');if(b){go(Number(b.dataset.step));return;}
-    if(e.target.closest('#whatsappBtn')){const msg=buildText();if(msg.length>5000){if(!confirm('This brief is long. WhatsApp may truncate it. You can also export JSON. Continue?'))return;}window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer');}
-    if(e.target.closest('#printBtn'))window.print();if(e.target.closest('#jsonBtn'))downloadJson();});
-  $('app').addEventListener('input',e=>{const id=e.target.dataset.input;if(id){st.answers[id]=e.target.value;save();}});
-  $('app').addEventListener('change',e=>{if(e.target.id==='fileUpload'){const incoming=Array.from(e.target.files||[]);const valid=incoming.filter(f=>f.size<=15*1024*1024);st.fileObjects.push(...valid);st.refs.push(...valid.map(f=>({name:f.name,size:f.size,type:f.type})));save();const list=$('fileList');if(list)list.textContent=fileListText()+(valid.length<incoming.length?' · Files over 15 MB skipped.':'');}});
+  $('app').addEventListener('click',e=>{if(e.target.closest('[data-choice]')){choices(e);return;}
+    const rm=e.target.closest('[data-remove-file]');if(rm){removeFile(rm.dataset.removeFile);return;}
+    const b=e.target.closest('[data-step]');if(b){go(Number(b.dataset.step));return;}
+    if(e.target.closest('#zipBtn'))sendZip();
+    if(e.target.closest('#whatsappBtn'))shareOnWhatsApp();
+    if(e.target.closest('#zipDlBtn')&&st.out&&st.out.zip)downloadBlob(st.out.zip.file,st.out.zip.file.name);
+    if(e.target.closest('#pdfBtn')&&st.out&&st.out.pdf)downloadBlob(st.out.pdf.file,st.out.pdf.file.name);
+    if(e.target.closest('#textOnlyBtn'))shareTextOnly();});
+  $('app').addEventListener('input',e=>{const id=e.target.dataset.input;if(id){st.answers[id]=e.target.value;save();if(id==='phone'){const h=$('phoneHint');if(h)h.textContent=phoneHint();}}});
+  $('app').addEventListener('change',e=>{if(e.target.classList.contains('js-file-input')){addFiles(Array.from(e.target.files||[]));e.target.value='';}});
   $('bottomNav').addEventListener('click',e=>{if(e.target.closest('#skipDetails'))go(6);});
 }
 init();
