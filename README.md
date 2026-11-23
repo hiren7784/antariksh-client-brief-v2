@@ -8,15 +8,22 @@ Live link: https://hiren7784.github.io/antariksh-client-brief-v2/
 - `js/pdf-lib.min.js` – pdf-lib 1.17.1 (MIT, licence in `js/pdf-lib-LICENSE.txt`). Loaded only on the last two steps, to make the brief PDF. Upload the `js` folder together with `index.html`.
 - `.nojekyll` – tells GitHub Pages to serve the files as they are.
 
-## How "Share via WhatsApp" works
+## How the last page sends the brief
 
-On the last step the form makes a PDF of the answers, with previews of the client's photos and a list of every reference file.
+When the client presses Next into the last page, the form packs everything into one ZIP:
 
-- **Phone (and Windows/Mac browsers that have a share menu):** the share menu opens with the PDF plus the photos and PDFs as separate files. The client picks WhatsApp → Antariksh Design Studio (+91 76210 03444) → Send.
-- **DWG, DXF, SketchUp, Revit, Word, Excel and other files:** browsers are not allowed to hand these to WhatsApp, so they travel **inside the PDF** as attachments. Open the PDF in Adobe Acrobat Reader; the Attachments (paperclip) panel opens by itself and lists them.
-- **Browsers without a share menu (e.g. Firefox):** the PDF downloads with every file inside it, and WhatsApp opens the Antariksh chat; the client attaches the PDF.
-- **Send as text message only** opens the Antariksh chat with all answers typed in (no files).
+```
+Antariksh-Brief-<Name>/
+  Antariksh-Brief-<Name>.pdf    brief with photo previews and a list of every file
+  Antariksh-Brief-<Name>.json   the same answers as data (import into team.html)
+  files/01-site-photo.jpg       every uploaded file exactly as uploaded,
+  files/02-plan.dwg             numbered as in the PDF list
+```
 
-Limits: up to 20 files, 25 MB each, 40 MB in total. One share carries the PDF plus at most 9 separate files (the browser refuses more than 10); any extra files go inside the PDF.
+- **Send ZIP on WhatsApp** (main button): the ZIP downloads and the Antariksh chat (+91 76210 03444) opens with the brief typed in. The client taps the paperclip → Document, picks the ZIP and presses Send. Browsers do not let a website hand a ZIP straight to WhatsApp on Android or computers, so this attach step is needed. On iPhone the share menu is tried first.
+- **Share PDF & photos** (phones only, one tap): the share menu opens with the PDF plus photos/PDFs as separate files. DWG, Word and other types travel inside that PDF as attachments (open in Adobe Acrobat Reader → paperclip panel).
+- **Download ZIP / Download PDF / Send as text message only** are small links under the buttons.
 
-Answers and files are kept only in the client's browser (files in IndexedDB) until they share them; nothing is stored on a server.
+Limits: up to 20 files, 25 MB each, 40 MB in total.
+
+Answers and files are kept only in the client's browser (files in IndexedDB) until they send them; nothing is stored on a server.
